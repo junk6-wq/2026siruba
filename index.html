@@ -1,0 +1,921 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>奥久慈と海の五日間</title>
+<meta name="description" content="2026年シルバーウィーク9/19–23、水戸発・2人合計4万円で組んだ茨城県内5日間の旅程と予算。">
+<style>
+/* ---------- tokens : light (bare :root = complete palette) ---------- */
+:root{
+  --ground:#FAFBF8;
+  --surface:#FFFFFF;
+  --surface-sunk:#EFF2ED;
+  --ink:#151C18;
+  --ink-soft:#3C4740;
+  --stone:#5B655E;
+  --stone-faint:#A8B0A9;
+  --rule:#D9DED7;
+  --moss:#2C4438;
+  --moss-soft:#4C6B5A;
+  --ryujin:#1466A5;
+  --ryujin-soft:#E3EEF6;
+  --kuri:#8A5A2B;
+  --shadow:0 1px 2px rgba(21,28,24,.05), 0 8px 24px -12px rgba(21,28,24,.18);
+  --shadow-lift:0 2px 4px rgba(21,28,24,.06), 0 18px 40px -18px rgba(21,28,24,.28);
+
+  --font-display:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho",YuMincho,"Noto Serif JP","Songti SC",serif;
+  --font-body:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",YuGothic,"Noto Sans JP","Helvetica Neue",Arial,sans-serif;
+  --font-num:ui-monospace,"SF Mono","Menlo","Roboto Mono",monospace;
+
+  --measure:34rem;
+  --pad:clamp(1.15rem,4vw,2.5rem);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E1512;
+    --surface:#16201B;
+    --surface-sunk:#111A16;
+    --ink:#E7ECE6;
+    --ink-soft:#B9C3BB;
+    --stone:#93A096;
+    --stone-faint:#5F6C64;
+    --rule:#26332C;
+    --moss:#8FBBA0;
+    --moss-soft:#6E9A7E;
+    --ryujin:#63AEE2;
+    --ryujin-soft:#152C3C;
+    --kuri:#D0A268;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.7);
+    --shadow-lift:0 2px 4px rgba(0,0,0,.45), 0 18px 40px -18px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0E1512;
+  --surface:#16201B;
+  --surface-sunk:#111A16;
+  --ink:#E7ECE6;
+  --ink-soft:#B9C3BB;
+  --stone:#93A096;
+  --stone-faint:#5F6C64;
+  --rule:#26332C;
+  --moss:#8FBBA0;
+  --moss-soft:#6E9A7E;
+  --ryujin:#63AEE2;
+  --ryujin-soft:#152C3C;
+  --kuri:#D0A268;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.7);
+  --shadow-lift:0 2px 4px rgba(0,0,0,.45), 0 18px 40px -18px rgba(0,0,0,.8);
+}
+
+/* ---------- base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:clamp(15px,.42vw + 14px,16.5px);
+  line-height:1.85;
+  font-feature-settings:"palt" 1;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:var(--ryujin);text-underline-offset:.22em;text-decoration-thickness:.06em}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--ryujin);outline-offset:3px;border-radius:2px}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;line-height:1.42;text-wrap:balance;margin:0}
+p{margin:0}
+table{border-collapse:collapse}
+
+.wrap{width:min(100% - 2*var(--pad), 62rem);margin-inline:auto}
+.eyebrow{
+  font-size:.7rem;letter-spacing:.19em;text-transform:uppercase;
+  font-weight:700;color:var(--stone);margin:0;
+}
+.lede{color:var(--ink-soft);max-width:var(--measure)}
+.num{font-family:var(--font-num);font-variant-numeric:tabular-nums;font-feature-settings:"palt" 0}
+
+/* ---------- hero ---------- */
+.hero{position:relative;isolation:isolate;background:#0B120E;overflow:hidden}
+.hero__img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:.62;z-index:-2;
+}
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(178deg,rgba(11,18,14,.72) 0%,rgba(11,18,14,.35) 38%,rgba(11,18,14,.88) 100%);
+}
+.hero__inner{
+  padding-block:clamp(4.5rem,17vh,9rem) clamp(2.2rem,6vh,3.4rem);
+  color:#F2F5F0;
+}
+.hero .eyebrow{color:#B9CFBE}
+.hero h1{
+  font-size:clamp(2.5rem,8.2vw,5rem);line-height:1.2;letter-spacing:.01em;
+  margin-top:.7rem;color:#FBFDFA;
+  text-shadow:0 2px 30px rgba(0,0,0,.5);
+}
+.hero__dates{
+  margin-top:1.1rem;font-family:var(--font-num);font-variant-numeric:tabular-nums;
+  font-size:clamp(1rem,2.6vw,1.35rem);letter-spacing:.06em;color:#DCE7DD;
+}
+.hero__note{margin-top:1.6rem;max-width:30rem;color:#CBD8CC;font-size:.92rem;line-height:1.8}
+.stats{
+  display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2.4rem;
+  border-top:1px solid rgba(255,255,255,.22);padding-top:1.4rem;
+}
+.stat{flex:1 1 8rem;min-width:7rem}
+.stat dt{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:#A9C0AE;font-weight:700}
+.stat dd{
+  margin:.3rem 0 0;font-family:var(--font-num);font-variant-numeric:tabular-nums;
+  font-size:clamp(1.35rem,4.4vw,1.9rem);color:#FBFDFA;letter-spacing:-.01em;
+}
+.stat dd small{font-size:.55em;letter-spacing:.02em;margin-left:.15em;color:#C6D6C9;font-family:var(--font-body)}
+.hero__credit{
+  position:absolute;right:.8rem;bottom:.55rem;z-index:1;
+  font-size:.62rem;color:rgba(255,255,255,.5);letter-spacing:.04em;
+}
+
+/* ---------- section frame ---------- */
+.section{padding-block:clamp(3.2rem,8vw,5.5rem)}
+.section--sunk{background:var(--surface-sunk)}
+.section__head{display:flex;flex-direction:column;gap:.55rem;margin-bottom:2.4rem;max-width:var(--measure)}
+.section__head h2{font-size:clamp(1.6rem,4.2vw,2.3rem)}
+
+/* ---------- distance bars ---------- */
+.dist{display:grid;gap:.1rem;margin:.4rem 0 0;padding:0;list-style:none}
+.dist__row{
+  display:grid;grid-template-columns:8.6rem 1fr auto;align-items:center;gap:.7rem;
+  padding-block:.5rem;border-bottom:1px solid var(--rule);
+}
+@media (max-width:34rem){.dist__row{grid-template-columns:7rem 1fr auto;gap:.5rem}}
+.dist__row:last-child{border-bottom:0}
+.dist__name{font-size:.9rem;font-weight:600}
+.dist__bar{height:.42rem;border-radius:99px;background:var(--moss-soft);opacity:.85}
+.dist__val{
+  font-family:var(--font-num);font-variant-numeric:tabular-nums;
+  font-size:.8rem;color:var(--stone);white-space:nowrap;
+}
+.dist__row[data-hub] .dist__bar{background:var(--ryujin)}
+
+/* ---------- timeline ---------- */
+.days{
+  display:grid;gap:clamp(2.4rem,6vw,4rem);
+  position:relative;
+}
+@media (min-width:52rem){
+  .days{padding-left:7rem}
+  .days::before{
+    content:"";position:absolute;left:.5rem;top:1rem;bottom:2rem;width:1px;
+    background:var(--rule);
+  }
+}
+.day{position:relative}
+.day__node{display:flex;align-items:baseline;gap:.7rem;margin-bottom:1rem}
+@media (min-width:52rem){
+  .day__node{
+    position:absolute;left:-7rem;top:.15rem;width:6.4rem;padding-left:1.9rem;
+    flex-direction:column;align-items:flex-start;gap:.12rem;margin-bottom:0;
+  }
+  .day__node::after{
+    content:"";position:absolute;left:0;top:.55rem;
+    width:.72rem;height:.72rem;border-radius:99px;box-sizing:content-box;
+    background:var(--ground);border:2px solid var(--moss);
+  }
+  .day--stay .day__node::after{background:var(--moss)}
+}
+.day__n{
+  font-family:var(--font-num);font-size:.68rem;letter-spacing:.16em;
+  color:var(--stone-faint);font-weight:700;
+}
+.day__date{
+  font-family:var(--font-num);font-variant-numeric:tabular-nums;
+  font-size:1.32rem;font-weight:700;color:var(--moss);letter-spacing:-.01em;
+}
+.day__dow{font-size:.72rem;color:var(--stone);letter-spacing:.05em}
+
+.card{
+  background:var(--surface);border:1px solid var(--rule);border-radius:3px;
+  box-shadow:var(--shadow);overflow:hidden;
+}
+.card__media{position:relative;background:var(--surface-sunk)}
+.card__media img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.card__cap{
+  position:absolute;left:0;right:0;bottom:0;
+  padding:1.6rem .9rem .5rem;
+  background:linear-gradient(transparent,rgba(8,14,10,.82));
+  color:#EAF0E9;font-size:.72rem;letter-spacing:.02em;
+  display:flex;justify-content:space-between;gap:1rem;align-items:flex-end;
+}
+.card__cap span:last-child{color:rgba(255,255,255,.55);flex:none;font-size:.62rem}
+.card__body{padding:clamp(1.2rem,3.4vw,2rem)}
+.card__title{display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem .8rem}
+.card__title h3{font-size:clamp(1.28rem,3.4vw,1.7rem)}
+.theme-tag{
+  font-size:.68rem;letter-spacing:.13em;font-weight:700;text-transform:uppercase;
+  color:var(--ryujin);background:var(--ryujin-soft);
+  padding:.2rem .55rem;border-radius:2px;white-space:nowrap;
+}
+.card__lede{margin-top:.7rem;color:var(--ink-soft);font-size:.94rem;max-width:var(--measure)}
+
+/* schedule list */
+.sched{
+  margin:1.5rem 0 0;padding:0;display:grid;
+  grid-template-columns:auto 1fr;gap:0 1rem;
+}
+.sched dt{
+  font-family:var(--font-num);font-variant-numeric:tabular-nums;
+  font-size:.8rem;color:var(--moss);font-weight:700;
+  padding-top:.62rem;white-space:nowrap;
+}
+.sched dd{
+  margin:0;padding:.55rem 0;border-bottom:1px dotted var(--rule);
+  font-size:.92rem;
+}
+.sched dd:last-of-type{border-bottom:0}
+.sched dd b{font-weight:700}
+.sched dd em{
+  font-style:normal;display:block;color:var(--stone);
+  font-size:.8rem;line-height:1.7;margin-top:.1rem;
+}
+.sched dd .yen{
+  font-family:var(--font-num);font-variant-numeric:tabular-nums;
+  color:var(--kuri);font-size:.78rem;font-weight:700;margin-left:.35em;
+  white-space:nowrap;
+}
+
+.card__foot{
+  margin-top:1.5rem;padding-top:.95rem;border-top:2px solid var(--moss);
+  display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:.5rem 1rem;
+}
+.card__foot .label{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);font-weight:700}
+.card__foot .sum{
+  font-family:var(--font-num);font-variant-numeric:tabular-nums;
+  font-size:1.4rem;font-weight:700;color:var(--ink);letter-spacing:-.01em;
+}
+.card__foot .sum small{font-size:.5em;color:var(--stone);margin-left:.35em;font-family:var(--font-body);letter-spacing:.03em}
+
+.flag{
+  margin-top:1.1rem;padding:.75rem .95rem;border-left:3px solid var(--ryujin);
+  background:var(--ryujin-soft);font-size:.84rem;line-height:1.75;color:var(--ink-soft);
+}
+.flag b{color:var(--ink)}
+
+/* photo strip inside a day */
+.duo{display:grid;grid-template-columns:1fr;gap:1px;background:var(--rule)}
+@media (min-width:34rem){.duo{grid-template-columns:1fr 1fr}}
+.duo figure{margin:0;position:relative;background:var(--surface-sunk)}
+.duo img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.solo{margin:0;position:relative;border-top:1px solid var(--rule);background:var(--surface-sunk)}
+.solo img{width:100%;aspect-ratio:21/9;object-fit:cover}
+.figcap{
+  position:absolute;left:0;right:0;bottom:0;padding:1.5rem .9rem .45rem;
+  background:linear-gradient(transparent,rgba(8,14,10,.8));
+  color:#EAF0E9;font-size:.7rem;letter-spacing:.02em;
+  display:flex;justify-content:space-between;gap:1rem;align-items:flex-end;
+}
+.figcap span:last-child{color:rgba(255,255,255,.55);flex:none;font-size:.6rem}
+
+/* ---------- budget ---------- */
+.budget-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-inline:calc(-1 * var(--pad));padding-inline:var(--pad)}
+.budget{width:100%;min-width:31rem;font-size:.92rem}
+.budget caption{text-align:left;font-size:.8rem;color:var(--stone);padding-bottom:.7rem}
+.budget th,.budget td{padding:.72rem .6rem;text-align:left;border-bottom:1px solid var(--rule)}
+.budget thead th{
+  font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--stone);
+  font-weight:700;border-bottom:1.5px solid var(--ink-soft);white-space:nowrap;
+}
+.budget td.n,.budget th.n{
+  text-align:right;font-family:var(--font-num);font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+.budget td.n{font-weight:600}
+.budget .detail{color:var(--stone);font-size:.82rem;line-height:1.7}
+.budget tbody tr:hover{background:var(--surface-sunk)}
+.budget tfoot td{
+  border-top:2px solid var(--ink-soft);border-bottom:0;padding-top:.9rem;
+  font-weight:700;font-size:1.05rem;
+}
+.budget tfoot .n{font-size:1.25rem;color:var(--kuri)}
+.budget .row-label{font-weight:700}
+
+.meter{display:grid;gap:.55rem;margin-top:2.2rem}
+.meter__bar{display:flex;height:1.5rem;border-radius:2px;overflow:hidden;background:var(--surface-sunk);border:1px solid var(--rule)}
+.meter__seg{display:grid;place-items:center;font-size:.62rem;font-weight:700;color:#FBFDFA;letter-spacing:.03em;overflow:hidden;white-space:nowrap}
+.meter__legend{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;font-size:.78rem;color:var(--stone)}
+.meter__legend span{display:inline-flex;align-items:center;gap:.38rem}
+.meter__legend i{width:.7rem;height:.7rem;border-radius:1px;flex:none}
+
+/* ---------- swap cards ---------- */
+.grid3{display:grid;gap:1.3rem;grid-template-columns:1fr}
+@media (min-width:44rem){.grid3{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:64rem){.grid3{grid-template-columns:repeat(3,1fr)}}
+.swap{
+  background:var(--surface);border:1px solid var(--rule);border-radius:3px;overflow:hidden;
+  display:flex;flex-direction:column;box-shadow:var(--shadow);
+  transition:box-shadow .25s ease, transform .25s ease;
+}
+.swap:hover{box-shadow:var(--shadow-lift);transform:translateY(-2px)}
+.swap img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.swap__body{padding:1.15rem 1.2rem 1.35rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+.swap__body h3{font-size:1.1rem}
+.swap__body p{font-size:.86rem;color:var(--ink-soft);line-height:1.78}
+.swap__cost{
+  margin-top:auto;padding-top:.7rem;border-top:1px solid var(--rule);
+  font-family:var(--font-num);font-variant-numeric:tabular-nums;
+  font-size:.8rem;color:var(--kuri);font-weight:700;
+}
+.swap__cost span{color:var(--stone);font-family:var(--font-body);font-weight:400;letter-spacing:.05em}
+
+/* ---------- checklist ---------- */
+.cols2{display:grid;gap:2.2rem clamp(2rem,5vw,3.5rem);grid-template-columns:1fr}
+@media (min-width:48rem){.cols2{grid-template-columns:1fr 1fr}}
+.checks{list-style:none;margin:.9rem 0 0;padding:0;display:grid;gap:.1rem}
+.checks li{
+  display:grid;grid-template-columns:auto 1fr;gap:.75rem;align-items:start;
+  padding-block:.62rem;border-bottom:1px solid var(--rule);font-size:.9rem;
+}
+.checks li:last-child{border-bottom:0}
+.checks li::before{
+  content:"";width:.95rem;height:.95rem;margin-top:.42rem;
+  border:1.5px solid var(--moss-soft);border-radius:2px;flex:none;
+}
+.checks em{font-style:normal;display:block;color:var(--stone);font-size:.79rem;line-height:1.7;margin-top:.08rem}
+.checks .when{
+  font-family:var(--font-num);font-size:.68rem;color:var(--ryujin);
+  font-weight:700;letter-spacing:.08em;
+}
+
+/* ---------- footer / credits ---------- */
+.foot{background:var(--surface-sunk);border-top:1px solid var(--rule);padding-block:clamp(2.4rem,6vw,3.6rem)}
+.foot h2{font-size:1.1rem;margin-bottom:.7rem}
+.foot p{font-size:.82rem;color:var(--stone);line-height:1.8;max-width:44rem}
+.credits{
+  margin-top:1.5rem;columns:2 15rem;column-gap:2rem;
+  font-size:.72rem;line-height:1.72;color:var(--stone);
+}
+.credits div{break-inside:avoid;margin-bottom:.45rem}
+.credits a{color:var(--stone);text-decoration-color:var(--stone-faint)}
+.credits a:hover{color:var(--ryujin)}
+.sources{margin-top:1.6rem;font-size:.75rem;line-height:1.85}
+.sources a{color:var(--stone)}
+.sources a:hover{color:var(--ryujin)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <img class="hero__img" src="images/fukuroda-falls.jpg" alt="夏の袋田の滝。四段に折れながら広い岩肌を流れ落ちる白い水と、両側の深い緑。">
+  <div class="hero__inner wrap">
+    <p class="eyebrow">Silver Week 2026 ／ 水戸発</p>
+    <h1>奥久慈と海の<br>五日間</h1>
+    <p class="hero__dates">9.19 SAT — 9.23 WED</p>
+    <p class="hero__note">
+      11年ぶりに成立した5連休。遠出をすると移動費だけで予算が溶けるので、
+      片道1時間半以内の「県北」に絞り、宿は1泊だけ。
+      残りは日帰りを重ねて、二人で4万円ちょうどに収めた案です。
+    </p>
+    <dl class="stats">
+      <div class="stat"><dt>Days</dt><dd>5<small>日</small></dd></div>
+      <div class="stat"><dt>People</dt><dd>2<small>人</small></dd></div>
+      <div class="stat"><dt>Budget</dt><dd>¥40,000</dd></div>
+      <div class="stat"><dt>Nights away</dt><dd>1<small>泊</small></dd></div>
+    </dl>
+  </div>
+  <p class="hero__credit">袋田の滝 ／ Photo: TANAKA Juuyoh, CC BY 2.0</p>
+</header>
+
+<!-- ================= 骨格 ================= -->
+<section class="section wrap" aria-labelledby="plan-shape">
+  <div class="section__head">
+    <p class="eyebrow">The shape of it</p>
+    <h2 id="plan-shape">5日間をどう割るか</h2>
+    <p class="lede">
+      4万円を二人で5日間に伸ばすと、1日あたり8,000円。宿を2泊とった時点で足が出ます。
+      そこで <b>「中日に1泊だけ本気の旅、前後は日帰り」</b> という配分にしました。
+      連休の中日（9/21泊）は初日の土曜泊より宿が取りやすく、値段も落ち着きます。
+    </p>
+  </div>
+
+  <ul class="dist" aria-label="水戸からの片道距離の目安">
+    <li class="dist__row" data-hub>
+      <span class="dist__name">大洗</span>
+      <span class="dist__bar" style="width:14%" aria-hidden="true"></span>
+      <span class="dist__val">約17km・30分</span>
+    </li>
+    <li class="dist__row">
+      <span class="dist__name">笠間</span>
+      <span class="dist__bar" style="width:21%" aria-hidden="true"></span>
+      <span class="dist__val">約25km・40分</span>
+    </li>
+    <li class="dist__row">
+      <span class="dist__name">ひたち海浜公園</span>
+      <span class="dist__bar" style="width:17%" aria-hidden="true"></span>
+      <span class="dist__val">約20km・35分</span>
+    </li>
+    <li class="dist__row">
+      <span class="dist__name">竜神大吊橋</span>
+      <span class="dist__bar" style="width:45%" aria-hidden="true"></span>
+      <span class="dist__val">約53km・1時間20分</span>
+    </li>
+    <li class="dist__row">
+      <span class="dist__name">五浦・北茨城</span>
+      <span class="dist__bar" style="width:51%" aria-hidden="true"></span>
+      <span class="dist__val">約60km・1時間10分</span>
+    </li>
+    <li class="dist__row">
+      <span class="dist__name">袋田の滝</span>
+      <span class="dist__bar" style="width:55%" aria-hidden="true"></span>
+      <span class="dist__val">約65km・1時間30分</span>
+    </li>
+  </ul>
+  <p class="lede" style="margin-top:1.4rem;font-size:.84rem;color:var(--stone)">
+    ※ 水戸駅からの片道の目安（車）。奥久慈方面は水郡線でも行けますが本数が少ないため、
+    この案は車利用で組んでいます。電車の場合の差額は下の予算表に注記しました。
+  </p>
+</section>
+
+<!-- ================= 旅程 ================= -->
+<section class="section section--sunk" aria-labelledby="itinerary">
+  <div class="wrap">
+    <div class="section__head">
+      <p class="eyebrow">Itinerary</p>
+      <h2 id="itinerary">五日間の流れ</h2>
+      <p class="lede">時刻は目安です。太字が「その日これだけは」という核。</p>
+    </div>
+
+    <div class="days">
+
+      <!-- DAY 1 -->
+      <article class="day">
+        <div class="day__node">
+          <span class="day__n">DAY 1</span>
+          <span class="day__date">9/19</span>
+          <span class="day__dow">土</span>
+        </div>
+        <div class="card">
+          <div class="card__media">
+            <img src="images/oarai-sunrise.jpg" alt="大洗海岸の日の出。水平線から昇る太陽が海面に一本の光の道をつくり、砂浜には数人のシルエット。" loading="lazy">
+            <p class="card__cap"><span>大洗海岸の日の出</span><span>Photo: Σ64, CC BY 3.0</span></p>
+          </div>
+          <div class="card__body">
+            <div class="card__title">
+              <h3>海から始める</h3>
+              <span class="theme-tag">大洗・那珂湊</span>
+            </div>
+            <p class="card__lede">
+              連休の初日は早起きで得をする日にします。5連休の一日目にいきなり遠出せず、
+              日の出を見て、市場で腹を満たして、昼には帰って昼寝。これで残り4日の体力が残ります。
+            </p>
+            <dl class="sched">
+              <dt>04:45</dt><dd>水戸を出発。<em>大洗まで30分ほど。コンビニで温かい飲み物を。</em></dd>
+              <dt>05:22</dt><dd><b>大洗海岸で日の出</b><em>9/19の日の出は5時22分ごろ。海側なので水平線から昇ります。磯前神社下の「神磯の鳥居」前が定番の位置。</em></dd>
+              <dt>06:30</dt><dd>大洗磯前神社に参拝<em>参拝無料。朝の境内は人が少なく静か。</em></dd>
+              <dt>09:00</dt><dd>めんたいパーク大洗<em>入館・工場見学ともに無料。試食あり。</em></dd>
+              <dt>10:30</dt><dd><b>那珂湊おさかな市場で昼食</b><span class="yen">¥3,600 / 2人</span><em>海鮮丼が1,500〜2,000円前後。11時台には行列ができるので早めに。駐車は4時間100円。</em></dd>
+              <dt>12:30</dt><dd>干物と鮮魚を買って大洗サンビーチを散歩<span class="yen">¥1,500</span></dd>
+              <dt>15:00</dt><dd>帰宅。昼寝。</dd>
+            </dl>
+            <div class="card__foot">
+              <span class="label">Day 1 subtotal</span>
+              <span class="sum">¥6,000<small>2人分</small></span>
+            </div>
+          </div>
+          <div class="duo">
+            <figure><img src="images/nakaminato.jpg" alt="那珂湊おさかな市場の店内。発泡スチロールの箱に氷と並べられた地魚と、値札の札が立つ通路。" loading="lazy"></figure>
+            <figure><img src="images/kaisendon.jpg" alt="どんぶりに盛られた海鮮丼。まぐろ、いくら、えびなどの刺身がご飯を覆っている。" loading="lazy"></figure>
+          </div>
+        </div>
+      </article>
+
+      <!-- DAY 2 -->
+      <article class="day">
+        <div class="day__node">
+          <span class="day__n">DAY 2</span>
+          <span class="day__date">9/20</span>
+          <span class="day__dow">日</span>
+        </div>
+        <div class="card">
+          <div class="card__media">
+            <img src="images/kasama-inari.jpg" alt="笠間稲荷神社の楼門。朱塗りの二層の門と、その前に立つ石灯籠。" loading="lazy">
+            <p class="card__cap"><span>笠間稲荷神社</span><span>Photo: Σ64, CC BY 3.0</span></p>
+          </div>
+          <div class="card__body">
+            <div class="card__title">
+              <h3>栗と土の町</h3>
+              <span class="theme-tag">笠間</span>
+            </div>
+            <p class="card__lede">
+              9月の笠間は栗のシーズンが始まったところ。神社の門前でモンブランを食べて、
+              午後は窯元をひやかす。歩く距離は短く、財布の減りもゆるやかな一日です。
+            </p>
+            <dl class="sched">
+              <dt>09:30</dt><dd>水戸を出発<em>国道50号で40分ほど。</em></dd>
+              <dt>10:15</dt><dd><b>笠間稲荷神社</b><em>日本三大稲荷のひとつ。参拝無料。樹齢400年の藤棚と、菊まつり前の静かな境内。</em></dd>
+              <dt>11:30</dt><dd><b>門前通りで栗スイーツと昼食</b><span class="yen">¥3,500 / 2人</span><em>いなり寿司と、笠間の栗を使ったモンブラン。9月は新栗が出始める時期です。</em></dd>
+              <dt>13:00</dt><dd>笠間芸術の森公園<em>入園無料。広い芝生。茨城県陶芸美術館は企画展ごとに料金が変わります。</em></dd>
+              <dt>15:00</dt><dd><b>ギャラリーロードで窯元めぐり</b><span class="yen">¥1,200</span><em>普段使いの器をひとつだけ買う、と決めておくと楽しく、かつ安く済みます。</em></dd>
+              <dt>17:00</dt><dd>帰宅</dd>
+            </dl>
+            <div class="flag">
+              <b>「かさま新栗まつり」</b>は例年9月末〜10月上旬の週末開催。2026年の日程が9/19–23と重なれば、この日をまつり当日に寄せる価値があります。笠間市の公式サイトで開催日の告知を確認してください。
+            </div>
+            <div class="card__foot">
+              <span class="label">Day 2 subtotal</span>
+              <span class="sum">¥5,500<small>2人分</small></span>
+            </div>
+          </div>
+          <figure class="solo">
+            <img src="images/kasama-yaki.jpg" alt="笠間焼の器が棚に並ぶ様子。釉薬の色と形がそれぞれ異なる皿と碗。" loading="lazy">
+            <figcaption class="figcap"><span>笠間焼。窯元によって土も釉薬もばらばらなのが笠間の面白さ</span><span>Photo: Σ64, CC BY 4.0</span></figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- DAY 3 -->
+      <article class="day day--stay">
+        <div class="day__node">
+          <span class="day__n">DAY 3</span>
+          <span class="day__date">9/21</span>
+          <span class="day__dow">月・敬老の日</span>
+        </div>
+        <div class="card">
+          <div class="card__media">
+            <img src="images/ryujin-bridge.jpg" alt="竜神大吊橋の主塔。青空を背に立つ水色の鉄塔と、金色の龍が描かれた壁面。" loading="lazy">
+            <p class="card__cap"><span>竜神大吊橋（常陸太田）</span><span>Photo: ブルーノ・プラス, CC BY 4.0</span></p>
+          </div>
+          <div class="card__body">
+            <div class="card__title">
+              <h3>渓谷と滝、そして湯</h3>
+              <span class="theme-tag">竜神峡 → 奥久慈</span>
+            </div>
+            <p class="card__lede">
+              5日間の山場。吊橋を渡り、滝の裏側に立ち、もうひとつの滝を見上げてから温泉に入ります。
+              移動は多いですが、すべて国道118号沿いに一直線に並んでいるので効率よく回れます。
+            </p>
+            <dl class="sched">
+              <dt>08:00</dt><dd>水戸を出発</dd>
+              <dt>09:40</dt><dd><b>竜神大吊橋</b><span class="yen">¥640 / 2人</span><em>渡橋料320円／人。長さ375m、水面から100m。8:30–17:00。橋の上のグレーチング窓から真下が見えます。</em></dd>
+              <dt>11:30</dt><dd><b>月待の滝もみじ苑で昼食</b><span class="yen">¥1,900 / 2人</span><em>滝の裏側に入れる「裏見の滝」。もりそば950円。10:30–17:00、<b>水曜定休</b>。</em></dd>
+              <dt>14:00</dt><dd><b>袋田の滝</b><span class="yen">¥600 / 2人</span><em>観瀑料300円／人。トンネルを抜けて第1観瀑台、エレベーターで第2観瀑台へ。5〜10月は8:00–18:00。</em></dd>
+              <dt>16:00</dt><dd><b>袋田温泉・大子温泉にチェックイン</b><span class="yen">¥17,000 / 2人1泊2食</span><em>連休の中日なので土曜泊より取りやすい。それでも早めの予約が要ります。</em></dd>
+              <dt>18:00</dt><dd>夕食（宿）<em>奥久慈しゃもが出る宿を選ぶと満足度が上がります。</em></dd>
+              <dt>20:00</dt><dd>もう一度風呂</dd>
+            </dl>
+            <div class="flag">
+              <b>水曜定休に注意。</b>月待の滝もみじ苑は水曜が定休日で、この連休では <b>9/23（水）が該当</b> します。滝そのものは通年見られますが、そばを食べるならこの3日目に組み込むのが確実です。
+            </div>
+            <div class="card__foot">
+              <span class="label">Day 3–4 subtotal</span>
+              <span class="sum">¥25,500<small>2人分・1泊込み</small></span>
+            </div>
+          </div>
+          <div class="duo">
+            <figure><img src="images/tsukimachi.jpg" alt="新緑に囲まれた月待の滝。岩のひさしから細く落ちる水と、下の浅い滝つぼ。" loading="lazy"></figure>
+            <figure><img src="images/fukuroda-falls.jpg" alt="袋田の滝。広い岩肌を四段に分かれて流れ落ちる白い水。" loading="lazy"></figure>
+          </div>
+        </div>
+      </article>
+
+      <!-- DAY 4 -->
+      <article class="day">
+        <div class="day__node">
+          <span class="day__n">DAY 4</span>
+          <span class="day__date">9/22</span>
+          <span class="day__dow">火・国民の休日</span>
+        </div>
+        <div class="card">
+          <div class="card__media">
+            <img src="images/onsen.jpg" alt="木々に囲まれた露天風呂。岩で縁取られた湯船から湯気が立っている。" loading="lazy">
+            <p class="card__cap"><span>朝の露天風呂（イメージ）</span><span>Photo: RickardA, public domain</span></p>
+          </div>
+          <div class="card__body">
+            <div class="card__title">
+              <h3>朝湯とりんご</h3>
+              <span class="theme-tag">大子 → 水戸</span>
+            </div>
+            <p class="card__lede">
+              予定を詰めない日。朝風呂に二度入って、道の駅で足湯につかり、りんごを買って帰る。
+              時間と体力が余っていれば、帰り道を海側に振って花貫渓谷へ寄れます。
+            </p>
+            <dl class="sched">
+              <dt>06:30</dt><dd><b>朝湯</b><em>宿の風呂は朝がいちばん空いています。</em></dd>
+              <dt>09:30</dt><dd>チェックアウト、道の駅奥久慈だいご<em>無料の足湯があります。</em></dd>
+              <dt>10:30</dt><dd>大子の町を歩く<em>りんご狩りは9月中旬〜11月下旬。入園700円＋もぎとり600円〜／人。</em></dd>
+              <dt>12:00</dt><dd>昼食<span class="yen">¥2,300 / 2人</span></dd>
+              <dt>13:30</dt><dd><b>りんごを買って帰路へ</b><span class="yen">¥660</span><em>樹上完熟の奥久慈りんご。9月は早生種の時期。</em></dd>
+              <dt>16:00</dt><dd>帰宅<em>花貫渓谷に寄り道するなら＋1時間半。</em></dd>
+            </dl>
+            <div class="flag">
+              <b>りんご狩りをするなら＋約¥2,600。</b>二人で入園＋もぎとり分です。下の予算表の予備費1,000円と土産枠を回せば、宿を少し安いところにするだけで吸収できます。
+            </div>
+          </div>
+          <figure class="solo">
+            <img src="images/hananuki.jpg" alt="花貫渓谷の渓流。岩の間を流れる澄んだ水と、覆いかぶさる緑の木々。" loading="lazy">
+            <figcaption class="figcap"><span>寄り道するなら花貫渓谷。紅葉は11月中旬なので、9月は青もみじと沢音だけ</span><span>Photo: Raita Futo, CC BY 2.0</span></figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- DAY 5 -->
+      <article class="day">
+        <div class="day__node">
+          <span class="day__n">DAY 5</span>
+          <span class="day__date">9/23</span>
+          <span class="day__dow">水・秋分の日</span>
+        </div>
+        <div class="card">
+          <div class="card__media">
+            <img src="images/kodokan.jpg" alt="弘道館の正庁。瓦屋根の平屋建てと、前庭に立つ手入れされた松。" loading="lazy">
+            <p class="card__cap"><span>弘道館 正庁（水戸）</span><span>Photo: Miyuki Meinaka, CC BY-SA 4.0</span></p>
+          </div>
+          <div class="card__body">
+            <div class="card__title">
+              <h3>地元を観光客の目で</h3>
+              <span class="theme-tag">水戸</span>
+            </div>
+            <p class="card__lede">
+              最終日は移動ゼロ。住んでいると案外入らない場所に、あえて入場料を払って入ります。
+              梅の季節を外した偕楽園は空いていて、これはこれで気持ちがいい。
+            </p>
+            <dl class="sched">
+              <dt>10:00</dt><dd><b>弘道館</b><span class="yen">¥840 / 2人</span><em>420円／人。日本最大級の藩校。</em></dd>
+              <dt>11:30</dt><dd>水戸城大手門・二の丸角櫓<em>復元された門と櫓。外から見るだけなら無料。</em></dd>
+              <dt>13:00</dt><dd><b>偕楽園</b><span class="yen">¥640 / 2人</span><em>320円／人。9/30までは6:00–19:00。好文亭に入るなら別料金。</em></dd>
+              <dt>15:00</dt><dd><b>千波湖を一周</b><em>約3km、無料。白鳥と黒鳥がいます。</em></dd>
+              <dt>16:00</dt><dd>湖畔でコーヒー<span class="yen">¥520</span></dd>
+              <dt>17:34</dt><dd>日の入り。連休おわり。</dd>
+            </dl>
+            <div class="card__foot">
+              <span class="label">Day 5 subtotal</span>
+              <span class="sum">¥2,000<small>2人分</small></span>
+            </div>
+          </div>
+          <div class="duo">
+            <figure>
+              <img src="images/kairakuen.jpg" alt="偕楽園の園池。刈り込まれた植栽が水辺に並び、水面に木々が映っている。" loading="lazy">
+              <figcaption class="figcap"><span>梅の季節を外すと、ただ静かな庭になる</span><span>Photo: Lukas, CC BY 2.0</span></figcaption>
+            </figure>
+            <figure>
+              <img src="images/senbako.jpg" alt="洗心台から見下ろした千波湖。湖の手前を道路が横切り、対岸に水戸の市街地が見える。" loading="lazy">
+              <figcaption class="figcap"><span>洗心台から千波湖と水戸市街</span><span>Photo: 百楽兎, CC BY-SA 3.0</span></figcaption>
+            </figure>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 予算 ================= -->
+<section class="section wrap" aria-labelledby="budget">
+  <div class="section__head">
+    <p class="eyebrow">Budget</p>
+    <h2 id="budget">4万円の内訳</h2>
+    <p class="lede">二人合計。車での移動を前提に、燃費15km/L・ガソリン175円/Lで概算しています。</p>
+  </div>
+
+  <div class="budget-scroll">
+    <table class="budget">
+      <caption>金額は2026年8月時点で公開されている料金と一般的な相場からの見積もりです。</caption>
+      <thead>
+        <tr><th scope="col">日</th><th scope="col">内訳</th><th scope="col" class="n">金額</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row" class="row-label">9/19</th>
+          <td>大洗・那珂湊<div class="detail">昼食3,600 ／ 干物・土産1,500 ／ 燃料800 ／ 駐車100</div></td>
+          <td class="n">¥6,000</td>
+        </tr>
+        <tr>
+          <th scope="row" class="row-label">9/20</th>
+          <td>笠間<div class="detail">昼食2,200 ／ 栗スイーツ1,300 ／ 笠間焼の器1,200 ／ 燃料800</div></td>
+          <td class="n">¥5,500</td>
+        </tr>
+        <tr>
+          <th scope="row" class="row-label">9/21–22</th>
+          <td>奥久慈1泊2日<div class="detail">宿（2名1泊2食）17,000 ／ 昼食2回4,200 ／ 燃料2,400 ／ 入場料1,240 ／ りんご・土産660</div></td>
+          <td class="n">¥25,500</td>
+        </tr>
+        <tr>
+          <th scope="row" class="row-label">9/23</th>
+          <td>水戸<div class="detail">弘道館840 ／ 偕楽園640 ／ 喫茶520</div></td>
+          <td class="n">¥2,000</td>
+        </tr>
+        <tr>
+          <th scope="row" class="row-label">予備</th>
+          <td>想定外の一杯、コインパーキング、雨具<div class="detail">使わなければそのまま浮きます</div></td>
+          <td class="n">¥1,000</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr><td colspan="2">合計</td><td class="n">¥40,000</td></tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="meter" aria-hidden="true">
+    <div class="meter__bar">
+      <div class="meter__seg" style="width:42.5%;background:var(--moss)">宿 42.5%</div>
+      <div class="meter__seg" style="width:29.55%;background:var(--moss-soft)">食 29.6%</div>
+      <div class="meter__seg" style="width:10.9%;background:var(--stone)">土産・予備 10.9%</div>
+      <div class="meter__seg" style="width:10.25%;background:var(--ryujin)">移動 10.3%</div>
+      <div class="meter__seg" style="width:6.8%;background:var(--kuri)">入場 6.8%</div>
+    </div>
+    <div class="meter__legend">
+      <span><i style="background:var(--moss)"></i>宿泊 ¥17,000</span>
+      <span><i style="background:var(--moss-soft)"></i>食事 ¥11,820</span>
+      <span><i style="background:var(--stone)"></i>土産・予備 ¥4,360</span>
+      <span><i style="background:var(--ryujin)"></i>移動・駐車 ¥4,100</span>
+      <span><i style="background:var(--kuri)"></i>入場料 ¥2,720</span>
+    </div>
+  </div>
+
+  <div class="flag" style="margin-top:2rem">
+    <b>電車で行く場合。</b>水戸→袋田はJR水郡線で片道約80分、袋田駅から滝本まではバス10分（260円／人）。
+    「袋田・大子観光フリーパス」が1日500円であります。ただし本数が少なく、竜神大吊橋は公共交通での往復が現実的でないため、
+    3日目だけレンタカーか、竜神大吊橋を諦めて袋田＋大子の町歩きに絞る形になります。
+    燃料代2,400円が運賃に置き換わるので、総額はおおむね同じか、やや増える程度です。
+  </div>
+</section>
+
+<!-- ================= 差し替え ================= -->
+<section class="section section--sunk" aria-labelledby="swaps">
+  <div class="wrap">
+    <div class="section__head">
+      <p class="eyebrow">Swaps</p>
+      <h2 id="swaps">差し替えるなら</h2>
+      <p class="lede">天気や気分で1日ぶんを入れ替えられる候補。金額は二人分の追加費用です。</p>
+    </div>
+
+    <div class="grid3">
+
+      <article class="swap">
+        <img src="images/kochia.jpg" alt="ひたち海浜公園のみはらしの丘。赤く色づいたコキアの丘とコスモス畑を、大勢の人が歩いている。" loading="lazy">
+        <div class="swap__body">
+          <h3>ひたち海浜公園</h3>
+          <p>
+            写真の真っ赤なコキアは<b>10月中旬</b>の姿。9月下旬はまだ緑から色づき始めで、
+            むしろコスモスが見頃に入るころです。緑のコキアもきれいなので、
+            「赤を期待して行かない」とだけ決めておけば外しません。入園450円／人＋秋の季節料金350円／人。
+          </p>
+          <p class="swap__cost">+¥1,600 <span>／ 2人・入園のみ</span></p>
+        </div>
+      </article>
+
+      <article class="swap">
+        <img src="images/rokkakudo.jpg" alt="五浦海岸の岩壁に立つ朱塗りの六角堂と、その下に広がる入り江の海。" loading="lazy">
+        <div class="swap__body">
+          <h3>五浦海岸と六角堂</h3>
+          <p>
+            岡倉天心が海にせり出した岩の上に建てた朱塗りの堂。北茨城まで片道1時間強。
+            県天心記念五浦美術館の岡倉天心記念室は210円／人と安い。
+            <b>月曜休館（祝日なら翌日）</b>なので、この連休では9/22（火）が休みになる点に注意。
+          </p>
+          <p class="swap__cost">+¥1,800 <span>／ 2人・拝観と燃料</span></p>
+        </div>
+      </article>
+
+      <article class="swap">
+        <img src="images/aquaworld.jpg" alt="アクアワールド大洗の水槽。青い水の中を魚が泳ぎ、来館者が見上げている。" loading="lazy">
+        <div class="swap__body">
+          <h3>雨が降ったら</h3>
+          <p>
+            アクアワールド茨城県大洗水族館は、サメの飼育種類数が日本一。
+            屋内で半日つぶせます。ほかに茨城県近代美術館（千波湖畔）、水戸芸術館も雨の日向き。
+            日帰りの日と最終日を入れ替えれば、旅程全体は崩れません。
+          </p>
+          <p class="swap__cost">+¥4,400 <span>／ 2人・水族館入館</span></p>
+        </div>
+      </article>
+
+      <article class="swap">
+        <img src="images/soba.jpg" alt="ざるに盛られたそばと、天ぷらの盛り合わせ、つゆの器。" loading="lazy">
+        <div class="swap__body">
+          <h3>もっと安くしたい</h3>
+          <p>
+            宿を1泊2食から素泊まりに変えると、二人で8,000円前後まで下がります。
+            浮いた約9,000円で、夕食を大子の店で外食してもおつりが来る。
+            なお常陸秋そばの<b>新そばは11月から</b>。9月に食べるのは前年産の熟成そばです。
+          </p>
+          <p class="swap__cost">−¥9,000 <span>／ 素泊まりに変更</span></p>
+        </div>
+      </article>
+
+      <article class="swap">
+        <img src="images/hananuki.jpg" alt="花貫渓谷の渓流と、岩の上に伸びる木々の緑。" loading="lazy">
+        <div class="swap__body">
+          <h3>渓谷をもう一本</h3>
+          <p>
+            花貫渓谷は汐見滝吊橋が有名ですが、紅葉は11月中旬。9月は人がほとんどおらず、
+            青もみじと沢音だけの場所になります。帰り道を海側に振るだけなので、
+            追加でかかるのは燃料と駐車場代くらい。
+          </p>
+          <p class="swap__cost">+¥800 <span>／ 2人・燃料と駐車</span></p>
+        </div>
+      </article>
+
+      <article class="swap">
+        <img src="images/ryujin-bridge.jpg" alt="竜神大吊橋の水色の主塔を見上げた構図。" loading="lazy">
+        <div class="swap__body">
+          <h3>バンジーは今回は見送り</h3>
+          <p>
+            竜神大吊橋のブリッジバンジーは高さ100m、日本最高クラス。
+            ただし<b>1回19,000円</b>で、二人で飛ぶと予算の9割が消えます。
+            橋の上から飛ぶ人を眺めるのは無料なので、今回はそれで。
+          </p>
+          <p class="swap__cost">+¥38,000 <span>／ 2人・予算外</span></p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 準備 ================= -->
+<section class="section wrap" aria-labelledby="prep">
+  <div class="section__head">
+    <p class="eyebrow">Before you go</p>
+    <h2 id="prep">先にやること</h2>
+  </div>
+
+  <div class="cols2">
+    <div>
+      <h3 style="font-size:1.05rem">予約と確認</h3>
+      <ul class="checks">
+        <li><div><b>宿を押さえる</b><span class="when">最優先</span><em>9/21（月）泊で、袋田温泉または大子温泉。11年ぶりの5連休で埋まりが早い。2名1泊2食17,000円が目安。</em></div></li>
+        <li><div><b>かさま新栗まつりの日程</b><em>例年9月末〜10月上旬の週末。笠間市の公式サイトで2026年の開催日を確認。重なるならDay 2をその日に。</em></div></li>
+        <li><div><b>ひたち海浜公園のコキアライトアップ</b><em>例年9月中旬〜下旬に開催され、観覧に別途1,000円ほど。2026年の日程は公式サイトで要確認。</em></div></li>
+        <li><div><b>各施設の休館日</b><em>月待の滝もみじ苑＝水曜定休（9/23が該当）。天心記念五浦美術館・六角堂＝月曜休館、祝日なら翌日（9/22が該当）。</em></div></li>
+        <li><div><b>ガソリンは前日に満タン</b><em>連休初日の朝はスタンドが混みます。</em></div></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 style="font-size:1.05rem">持ち物</h3>
+      <ul class="checks">
+        <li><div><b>朝の羽織りもの</b><em>9月下旬の日の出前、海辺は思ったより冷えます。</em></div></li>
+        <li><div><b>歩ける靴</b><em>袋田の滝は遊歩道とトンネル、千波湖は3km。</em></div></li>
+        <li><div><b>保冷バッグと保冷剤</b><em>那珂湊で干物や刺身を買って帰るなら必須。</em></div></li>
+        <li><div><b>現金</b><em>市場の一部の店や小さな窯元はカードが使えないことがあります。</em></div></li>
+        <li><div><b>タオル</b><em>道の駅奥久慈だいごの足湯用。</em></div></li>
+        <li><div><b>器を包むもの</b><em>笠間焼を買うなら、緩衝材か厚手の布を車に。</em></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= footer ================= -->
+<footer class="foot">
+  <div class="wrap">
+    <h2>この案について</h2>
+    <p>
+      料金・営業時間・開催日は2026年8月時点で各施設や自治体が公開している情報をもとにしています。
+      連休中は臨時ダイヤや特別料金になることがあるため、出発前に公式サイトでの確認をおすすめします。
+      宿泊費は相場からの見積もりで、実際の料金は宿と予約時期によって変わります。
+    </p>
+
+    <h2 style="margin-top:2rem">写真クレジット</h2>
+    <p>掲載写真はすべてウィキメディア・コモンズの自由なライセンスの作品です。</p>
+    <div class="credits">
+      <div>袋田の滝／月待の滝 — TANAKA Juuyoh（田中十洋）, <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a></div>
+      <div>大洗海岸の日の出／笠間稲荷神社／笠間焼 — Σ64, <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>・<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div>
+      <div>竜神大吊橋 — ブルーノ・プラス, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div>
+      <div>那珂湊おさかな市場 — 江戸村のとくぞう, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></div>
+      <div>花貫渓谷 — Raita Futo, <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a></div>
+      <div>六角堂・五浦海岸／弘道館／アクアワールド大洗 — Miyuki Meinaka, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>・<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></div>
+      <div>千波湖 — 百楽兎, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></div>
+      <div>偕楽園 — Lukas (München), <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a></div>
+      <div>コキア（ひたち海浜公園） — Dandy1022, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></div>
+      <div>露天風呂（イメージ・鷹の湯温泉） — RickardA, パブリックドメイン</div>
+      <div>海鮮丼（イメージ） — pxfuel, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></div>
+      <div>そばと天ぷら（イメージ） — pelican, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a></div>
+    </div>
+
+    <div class="sources">
+      <p style="color:var(--ink-soft);font-weight:600;margin-bottom:.4rem">主な出典</p>
+      <p>
+        <a href="https://www.jalan.net/news/article/366851/">じゃらんニュース「2026年シルバーウィークはいつ？」</a>／
+        <a href="https://www.daigo-kanko.jp/fukuroda-falls/access.html">大子町観光協会（袋田の滝アクセス）</a>／
+        <a href="https://ohtsuribashi.ryujinkyo.jp/">竜神大吊橋 公式サイト</a>／
+        <a href="https://momijien.com/">月待の滝 もみじ苑 公式</a>／
+        <a href="https://www.nakaminato-osakanaichiba.jp/">那珂湊おさかな市場</a>／
+        <a href="https://www.city.kasama.lg.jp/page/page002902.html">笠間市（かさま新栗まつり）</a>／
+        <a href="https://www.daigo-kanko.jp/tokusan/apple.html">大子町観光協会（りんご狩り）</a>／
+        <a href="https://ibaraki-kairakuen.jp/">偕楽園 公式</a>／
+        <a href="https://kodokan-ibaraki.jp/">弘道館 公式</a>／
+        <a href="https://www.ibarakiguide.jp/special/kochia.html">観光いばらき（コキア）</a>／
+        <a href="https://www.tenshin.museum.ibk.ed.jp/">茨城県天心記念五浦美術館</a>／
+        <a href="https://www.ibarakiguide.jp/gourmet/ibaraki_restaurant/hitachiakisoba.html">観光いばらき（常陸秋そば）</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
