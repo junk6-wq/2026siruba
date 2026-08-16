@@ -137,6 +137,38 @@ table{border-collapse:collapse}
   font-size:.62rem;color:rgba(255,255,255,.5);letter-spacing:.04em;
 }
 
+/* ---------- tab bar ---------- */
+.tabbar{
+  position:sticky;top:0;z-index:10;
+  background:var(--ground);border-bottom:1px solid var(--rule);
+  box-shadow:0 1px 0 var(--rule);
+}
+.tabbar__inner{
+  display:flex;gap:.2rem;
+}
+.tab{
+  flex:1 1 0;min-width:0;
+  display:flex;flex-direction:column;align-items:center;gap:.15rem;
+  padding:.7rem .4rem .6rem;margin:0;border:0;background:none;cursor:pointer;
+  font-family:var(--font-body);color:var(--stone);
+  border-bottom:2.5px solid transparent;
+  transition:color .15s ease, border-color .15s ease;
+}
+.tab:hover{color:var(--ink-soft)}
+.tab__label{font-size:.9rem;font-weight:700;letter-spacing:.02em;white-space:nowrap}
+.tab__sub{font-size:.62rem;color:var(--stone-faint);letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.tab[aria-selected="true"]{color:var(--moss);border-bottom-color:var(--moss)}
+.tab[aria-selected="true"] .tab__sub{color:var(--moss-soft)}
+@media (min-width:34rem){
+  .tabbar__inner{gap:.4rem}
+  .tab{flex:0 0 auto;padding:.85rem 1.4rem .7rem}
+  .tab__label{font-size:.95rem}
+  .tab__sub{font-size:.67rem}
+}
+[role="tabpanel"]{animation:panel-in .2s ease}
+@keyframes panel-in{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){[role="tabpanel"]{animation:none}}
+
 /* ---------- section frame ---------- */
 .section{padding-block:clamp(2rem,5vw,3.4rem)}
 .section--sunk{background:var(--surface-sunk)}
@@ -388,6 +420,25 @@ table{border-collapse:collapse}
   </div>
   <p class="hero__credit">袋田の滝 ／ Photo: TANAKA Juuyoh, CC BY 2.0</p>
 </header>
+
+<div class="tabbar">
+  <div class="tabbar__inner wrap" role="tablist" aria-label="ページ内のセクション">
+    <button type="button" role="tab" id="tab-itinerary" aria-controls="panel-itinerary" aria-selected="true" class="tab">
+      <span class="tab__label">旅程</span><span class="tab__sub">5日間の計画</span>
+    </button>
+    <button type="button" role="tab" id="tab-budget" aria-controls="panel-budget" aria-selected="false" tabindex="-1" class="tab">
+      <span class="tab__label">予算</span><span class="tab__sub">¥40,000の内訳</span>
+    </button>
+    <button type="button" role="tab" id="tab-swaps" aria-controls="panel-swaps" aria-selected="false" tabindex="-1" class="tab">
+      <span class="tab__label">差し替え</span><span class="tab__sub">天気・気分で入替</span>
+    </button>
+    <button type="button" role="tab" id="tab-prep" aria-controls="panel-prep" aria-selected="false" tabindex="-1" class="tab">
+      <span class="tab__label">準備</span><span class="tab__sub">予約・持ち物</span>
+    </button>
+  </div>
+</div>
+
+<div id="panel-itinerary" role="tabpanel" aria-labelledby="tab-itinerary" tabindex="0">
 
 <!-- ================= 骨格 ================= -->
 <section class="section wrap" aria-labelledby="plan-shape">
@@ -672,6 +723,10 @@ table{border-collapse:collapse}
   </div>
 </section>
 
+</div><!-- /panel-itinerary -->
+
+<div id="panel-budget" role="tabpanel" aria-labelledby="tab-budget" tabindex="0" hidden>
+
 <!-- ================= 予算 ================= -->
 <section class="section wrap" aria-labelledby="budget">
   <div class="section__head">
@@ -743,6 +798,10 @@ table{border-collapse:collapse}
     燃料代2,400円が運賃に置き換わるので、総額はおおむね同じか、やや増える程度です。
   </div>
 </section>
+
+</div><!-- /panel-budget -->
+
+<div id="panel-swaps" role="tabpanel" aria-labelledby="tab-swaps" tabindex="0" hidden>
 
 <!-- ================= 差し替え ================= -->
 <section class="section section--sunk" aria-labelledby="swaps">
@@ -837,6 +896,10 @@ table{border-collapse:collapse}
   </div>
 </section>
 
+</div><!-- /panel-swaps -->
+
+<div id="panel-prep" role="tabpanel" aria-labelledby="tab-prep" tabindex="0" hidden>
+
 <!-- ================= 準備 ================= -->
 <section class="section wrap" aria-labelledby="prep">
   <div class="section__head">
@@ -869,6 +932,8 @@ table{border-collapse:collapse}
     </div>
   </div>
 </section>
+
+</div><!-- /panel-prep -->
 
 <!-- ================= footer ================= -->
 <footer class="foot">
@@ -916,6 +981,35 @@ table{border-collapse:collapse}
     </div>
   </div>
 </footer>
+
+<script>
+(function(){
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  var panels = tabs.map(function(t){ return document.getElementById(t.getAttribute('aria-controls')); });
+
+  function select(index, moveFocus){
+    tabs.forEach(function(t, i){
+      var active = i === index;
+      t.setAttribute('aria-selected', active ? 'true' : 'false');
+      t.tabIndex = active ? 0 : -1;
+      panels[i].hidden = !active;
+    });
+    if (moveFocus) tabs[index].focus();
+  }
+
+  tabs.forEach(function(tab, i){
+    tab.addEventListener('click', function(){ select(i, false); });
+    tab.addEventListener('keydown', function(e){
+      var next = null;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % tabs.length;
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (i - 1 + tabs.length) % tabs.length;
+      else if (e.key === 'Home') next = 0;
+      else if (e.key === 'End') next = tabs.length - 1;
+      if (next !== null){ e.preventDefault(); select(next, true); }
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
