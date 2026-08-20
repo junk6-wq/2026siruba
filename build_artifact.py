@@ -53,9 +53,12 @@ def main() -> int:
                 return m.group(0)
             cache[rel] = encode(path, args.width, args.quality)
             print(f"  埋め込み {rel:34s} {len(cache[rel]) // 1024:5d}KB")
-        return f'src="{cache[rel]}"'
+        return f'"{cache[rel]}"'
 
-    html = re.sub(r'src="(images/[^"]+)"', swap, html)
+    # HTML の src="images/…" と、方面切り替え用JS内の img: "images/…" の両方を置換する。
+    # どちらも "images/ファイル名" という引用符付き文字列である点だけが共通なので、
+    # 引用符ごと拾って中身だけ data URI に差し替える。
+    html = re.sub(r'"(images/[^"]+)"', swap, html)
 
     if missing:
         print("見つからない画像:", ", ".join(sorted(set(missing))), file=sys.stderr)
