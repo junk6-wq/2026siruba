@@ -137,9 +137,40 @@ table{border-collapse:collapse}
   font-size:.62rem;color:rgba(255,255,255,.5);letter-spacing:.04em;
 }
 
+/* ---------- region bar ---------- */
+.regionbar{
+  position:sticky;top:0;z-index:12;
+  background:var(--moss);border-bottom:1px solid rgba(0,0,0,.15);
+}
+.regionbar__inner{
+  display:flex;gap:.4rem;padding-block:.55rem;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.regionbar__inner::-webkit-scrollbar{display:none}
+.region-tab{
+  flex:0 0 auto;padding:.4rem .95rem;border:1px solid rgba(255,255,255,.28);border-radius:99px;
+  background:rgba(255,255,255,.08);color:#DCE7DD;font-family:var(--font-body);
+  font-size:.84rem;font-weight:700;letter-spacing:.02em;cursor:pointer;white-space:nowrap;
+  transition:background .15s ease, color .15s ease, border-color .15s ease;
+}
+.region-tab:hover{background:rgba(255,255,255,.16)}
+.region-tab[aria-selected="true"]{background:#FBFDFA;color:var(--moss);border-color:#FBFDFA}
+.regionbar__note{
+  padding-block:.55rem;font-size:.76rem;color:var(--stone);line-height:1.6;max-width:var(--measure);
+  background:var(--ground);
+}
+.region[hidden]{display:none}
+
+/* ---------- compact region itinerary (alt destinations) ---------- */
+.minidays{display:grid;gap:1.3rem;margin-top:1.2rem}
+.miniday__label{
+  font-family:var(--font-num);font-size:.72rem;letter-spacing:.16em;
+  color:var(--stone-faint);font-weight:700;margin:0 0 .4rem;
+}
+
 /* ---------- tab bar ---------- */
 .tabbar{
-  position:sticky;top:0;z-index:10;
+  position:sticky;top:var(--regionbar-h, 2.75rem);z-index:10;
   background:var(--ground);border-bottom:1px solid var(--rule);
   box-shadow:0 1px 0 var(--rule);
 }
@@ -401,25 +432,38 @@ table{border-collapse:collapse}
 <body>
 
 <header class="hero">
-  <img class="hero__img" src="images/fukuroda-falls.jpg" alt="夏の袋田の滝。四段に折れながら広い岩肌を流れ落ちる白い水と、両側の深い緑。">
+  <img class="hero__img" id="hero-img" src="images/fukuroda-falls.jpg" alt="夏の袋田の滝。四段に折れながら広い岩肌を流れ落ちる白い水と、両側の深い緑。">
   <div class="hero__inner wrap">
     <p class="eyebrow">Silver Week 2026 ／ 水戸発</p>
-    <h1>奥久慈と海の<br>五日間</h1>
+    <h1 id="hero-title">奥久慈と海の<br>五日間</h1>
     <p class="hero__dates">9.19 SAT — 9.23 WED</p>
-    <p class="hero__note">
+    <p class="hero__note" id="hero-note">
       11年ぶりに成立した5連休。遠出をすると移動費だけで予算が溶けるので、
       片道1時間半以内の「県北」に絞り、宿は1泊だけ。
       残りは日帰りを重ねて、二人で4万円ちょうどに収めた案です。
     </p>
     <dl class="stats">
-      <div class="stat"><dt>Days</dt><dd>5<small>日</small></dd></div>
+      <div class="stat"><dt>Days</dt><dd id="hero-days">5<small>日</small></dd></div>
       <div class="stat"><dt>People</dt><dd>2<small>人</small></dd></div>
       <div class="stat"><dt>Budget</dt><dd>¥40,000</dd></div>
       <div class="stat"><dt>Nights away</dt><dd>1<small>泊</small></dd></div>
     </dl>
   </div>
-  <p class="hero__credit">袋田の滝 ／ Photo: TANAKA Juuyoh, CC BY 2.0</p>
+  <p class="hero__credit" id="hero-credit">袋田の滝 ／ Photo: TANAKA Juuyoh, CC BY 2.0</p>
 </header>
+
+<div class="regionbar">
+  <div class="regionbar__inner wrap" role="tablist" aria-label="行き先を選ぶ">
+    <button type="button" role="tab" id="region-tab-ibaraki" aria-controls="region-ibaraki" aria-selected="true" class="region-tab">茨城</button>
+    <button type="button" role="tab" id="region-tab-yamagata" aria-controls="region-yamagata" aria-selected="false" tabindex="-1" class="region-tab">山形</button>
+    <button type="button" role="tab" id="region-tab-niigata" aria-controls="region-niigata" aria-selected="false" tabindex="-1" class="region-tab">新潟</button>
+    <button type="button" role="tab" id="region-tab-fukushima" aria-controls="region-fukushima" aria-selected="false" tabindex="-1" class="region-tab">福島</button>
+    <button type="button" role="tab" id="region-tab-izu" aria-controls="region-izu" aria-selected="false" tabindex="-1" class="region-tab">伊豆</button>
+  </div>
+</div>
+<p class="regionbar__note wrap">予算はどの方面も2人合計4万円のまま。遠い方面ほど交通費の比率が上がり、宿と食事は切り詰めています。</p>
+
+<div id="region-ibaraki" class="region">
 
 <div class="tabbar">
   <div class="tabbar__inner wrap" role="tablist" aria-label="ページ内のセクション">
@@ -935,6 +979,367 @@ table{border-collapse:collapse}
 
 </div><!-- /panel-prep -->
 
+</div><!-- /region-ibaraki -->
+
+<!-- ================= 山形方面 ================= -->
+<div id="region-yamagata" class="region" hidden>
+<section class="section wrap">
+  <div class="section__head">
+    <p class="eyebrow">Alternative ／ 山形方面</p>
+    <h2>蔵王と山寺、駆け足の1泊2日</h2>
+    <p class="lede">
+      水戸からは片道3〜4時間強。新幹線を使うと交通費だけで予算の半分以上が飛ぶため、
+      往復とも高速バス乗り継ぎが前提です。1泊で山寺と蔵王のどちらも欲張らず、
+      それぞれ半日ずつに絞りました。
+    </p>
+  </div>
+
+  <div class="flag">
+    <b>アクセス。</b>水戸→（常磐線）→上野→（高速バス「レインボー号」等）→山形駅の乗り継ぎで、
+    往復1人あたり1万2千円台が目安。新幹線（東京〜山形つばさ）を使うと片道1万円前後かかり、
+    2人往復だけで予算の大半が消えます。
+  </div>
+
+  <div class="minidays">
+    <div class="miniday">
+      <p class="miniday__label">DAY 1</p>
+      <div class="card">
+        <div class="card__media">
+          <img src="images/yamadera.jpg" alt="山寺（立石寺）の岩肌。苔と灌木に覆われた凝灰岩の断崖に、いくつもの穴や祠が刻まれている。" loading="lazy">
+          <p class="card__cap"><span>山寺（立石寺）の岩壁</span><span>Photo: Zairon, CC BY-SA 4.0</span></p>
+        </div>
+        <div class="card__body">
+          <div class="card__title">
+            <h3>山寺を登る</h3>
+            <span class="theme-tag">山形市・山寺</span>
+          </div>
+          <p class="card__lede">奥の院までは1,015段。松尾芭蕉が「閑さや」を詠んだ場所でもある。</p>
+          <dl class="sched">
+            <dt>07:00</dt><dd>水戸を出発<em>常磐線で上野へ、高速バスに乗り継ぎ。</em></dd>
+            <dt>13:00</dt><dd>山形駅着、山寺駅へ移動<em>仙山線で20分ほど。</em></dd>
+            <dt>13:30</dt><dd><b>山寺（立石寺）を登る</b><span class="yen">¥600 / 2人</span><em>拝観料300円／人。往復1〜2時間。石段は滑りやすい靴だと厳しい。</em></dd>
+            <dt>16:00</dt><dd>山形市街で早めの夕食<span class="yen">¥2,200 / 2人</span><em>冷やしラーメン、または季節の芋煮。芋煮は9月から解禁。</em></dd>
+            <dt>18:00</dt><dd>蔵王温泉へ移動、宿泊<em>山形駅からバスで40分ほど。</em></dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="miniday">
+      <p class="miniday__label">DAY 2</p>
+      <div class="card">
+        <div class="card__media">
+          <img src="images/zao-okama.jpg" alt="蔵王の御釜。三方を外輪山に囲まれたエメラルドグリーンの火口湖と、色づき始めた斜面の草木。" loading="lazy">
+          <p class="card__cap"><span>蔵王の御釜</span><span>Photo: OKJaguar, CC BY-SA 4.0</span></p>
+        </div>
+        <div class="card__body">
+          <div class="card__title">
+            <h3>御釜を見て帰る</h3>
+            <span class="theme-tag">蔵王</span>
+          </div>
+          <p class="card__lede">写真は紅葉最盛期のもの。9月下旬はまだ色づき始めで、山頂は防寒具が要る。</p>
+          <dl class="sched">
+            <dt>07:00</dt><dd>蔵王温泉で朝湯<em>強酸性の硫黄泉。</em></dd>
+            <dt>09:00</dt><dd><b>御釜展望台へ</b><span class="yen">¥3,200 / 2人</span><em>季節運行の山頂バス「こまくさ号」を利用。運行期間は年によって変わるため要確認。</em></dd>
+            <dt>11:30</dt><dd>蔵王温泉に戻って昼食<span class="yen">¥1,800 / 2人</span></dd>
+            <dt>13:30</dt><dd>山形駅へ、高速バスで帰路へ</dd>
+            <dt>19:00</dt><dd>水戸着</dd>
+          </dl>
+          <div class="card__foot">
+            <span class="label">2日間 合計</span>
+            <span class="sum">¥40,000<small>2人分</small></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="budget-scroll">
+    <table class="budget">
+      <caption>2人合計。交通は高速バス乗り継ぎ、宿は素泊まりを想定した概算です。</caption>
+      <thead><tr><th scope="col">項目</th><th scope="col">内訳</th><th scope="col" class="n">金額</th></tr></thead>
+      <tbody>
+        <tr><th scope="row" class="row-label">交通</th><td class="detail">常磐線・高速バス往復（2人）</td><td class="n">¥25,000</td></tr>
+        <tr><th scope="row" class="row-label">宿</th><td class="detail">蔵王温泉、素泊まり1泊（2人）</td><td class="n">¥8,000</td></tr>
+        <tr><th scope="row" class="row-label">食事</th><td class="detail">冷やしラーメン・芋煮など</td><td class="n">¥4,500</td></tr>
+        <tr><th scope="row" class="row-label">入場・移動</th><td class="detail">山寺拝観、山頂バス</td><td class="n">¥2,000</td></tr>
+        <tr><th scope="row" class="row-label">予備</th><td class="detail"></td><td class="n">¥500</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2">合計</td><td class="n">¥40,000</td></tr></tfoot>
+    </table>
+  </div>
+</section>
+</div><!-- /region-yamagata -->
+
+<!-- ================= 新潟方面 ================= -->
+<div id="region-niigata" class="region" hidden>
+<section class="section wrap">
+  <div class="section__head">
+    <p class="eyebrow">Alternative ／ 新潟方面</p>
+    <h2>清津峡と谷川岳、県境の1泊2日</h2>
+    <p class="lede">
+      目的地は新潟県境の越後湯沢。上越新幹線を使えば大宮から52分だが、
+      自由席往復だけで1人1万円を超える。ここでは高崎経由の各駅停車・快速を
+      乗り継ぐ前提で、時間より予算を優先した。
+    </p>
+  </div>
+
+  <div class="flag">
+    <b>アクセス。</b>水戸→上野→高崎→越後湯沢と在来線を乗り継ぐと、往復1人あたり9千円台が目安
+    （上越新幹線を使うと大宮〜越後湯沢だけで自由席往復11,440円かかる）。片道5時間前後と長いので、
+    行き帰りとも移動日と割り切る。
+  </div>
+
+  <div class="minidays">
+    <div class="miniday">
+      <p class="miniday__label">DAY 1</p>
+      <div class="card">
+        <div class="card__media">
+          <img src="images/kiyotsukyo.jpg" alt="清津峡の渓谷。柱状節理の岩壁が両側にそそり立ち、谷底を清流が流れる。" loading="lazy">
+          <p class="card__cap"><span>清津峡</span><span>Photo: 清兵衛, CC BY-SA 3.0</span></p>
+        </div>
+        <div class="card__body">
+          <div class="card__title">
+            <h3>渓谷とポン酒</h3>
+            <span class="theme-tag">越後湯沢</span>
+          </div>
+          <p class="card__lede">日本三大峡谷のひとつ。トンネル内の遊歩道からも柱状節理を間近に見られる。</p>
+          <dl class="sched">
+            <dt>06:30</dt><dd>水戸を出発<em>上野・高崎経由、各駅停車と快速を乗り継ぐ。</em></dd>
+            <dt>12:00</dt><dd>越後湯沢駅着</dd>
+            <dt>13:00</dt><dd><b>清津峡へ</b><span class="yen">¥1,600 / 2人</span><em>路線バスで20分ほど。トンネル入場料800円／人。</em></dd>
+            <dt>16:00</dt><dd>湯沢駅に戻って「ポンシュ館」で利き酒<span class="yen">¥1,000 / 2人</span><em>コイン制、地酒を少しずつ試せる。</em></dd>
+            <dt>18:00</dt><dd>宿にチェックイン、素泊まり<em>湯沢温泉の共同浴場は町のあちこちにある。</em></dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="miniday">
+      <p class="miniday__label">DAY 2</p>
+      <div class="card">
+        <div class="card__media">
+          <img src="images/tanigawadake.jpg" alt="谷川岳ロープウェイのゴンドラと、紅葉に染まった山肌。奥に主稜線が見える。" loading="lazy">
+          <p class="card__cap"><span>谷川岳ロープウェイ（写真は紅葉最盛期）</span><span>Photo: Qurren, CC BY-SA 3.0</span></p>
+        </div>
+        <div class="card__body">
+          <div class="card__title">
+            <h3>ロープウェイと土合駅</h3>
+            <span class="theme-tag">谷川岳</span>
+          </div>
+          <p class="card__lede">紅葉は例年10月中旬から。9月下旬はまだ早いが、稜線の空気は一足先に秋になる。</p>
+          <dl class="sched">
+            <dt>08:00</dt><dd>湯沢からバスで谷川岳ロープウェイへ<span class="yen">¥1,600 / 2人</span></dd>
+            <dt>09:00</dt><dd><b>天神平まで往復</b><span class="yen">¥5,200 / 2人</span><em>ロープウェイ往復2,600円／人ほど。天神平から谷川岳の稜線を望む。</em></dd>
+            <dt>12:00</dt><dd>土合駅に立ち寄る<em>下りホームまで462段、「日本一のモグラ駅」。</em></dd>
+            <dt>13:30</dt><dd>越後湯沢から帰路へ</dd>
+            <dt>19:00</dt><dd>水戸着</dd>
+          </dl>
+          <div class="card__foot">
+            <span class="label">2日間 合計</span>
+            <span class="sum">¥40,000<small>2人分</small></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="budget-scroll">
+    <table class="budget">
+      <caption>2人合計。交通は在来線乗り継ぎ、宿は湯沢温泉の素泊まりを想定した概算です。</caption>
+      <thead><tr><th scope="col">項目</th><th scope="col">内訳</th><th scope="col" class="n">金額</th></tr></thead>
+      <tbody>
+        <tr><th scope="row" class="row-label">交通</th><td class="detail">在来線往復（2人）</td><td class="n">¥19,000</td></tr>
+        <tr><th scope="row" class="row-label">宿</th><td class="detail">湯沢温泉、素泊まり1泊（2人）</td><td class="n">¥7,000</td></tr>
+        <tr><th scope="row" class="row-label">食事</th><td class="detail">へぎそば・利き酒など</td><td class="n">¥5,000</td></tr>
+        <tr><th scope="row" class="row-label">現地移動・入場</th><td class="detail">清津峡、ロープウェイ、路線バス</td><td class="n">¥5,000</td></tr>
+        <tr><th scope="row" class="row-label">予備</th><td class="detail"></td><td class="n">¥4,000</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2">合計</td><td class="n">¥40,000</td></tr></tfoot>
+    </table>
+  </div>
+</section>
+</div><!-- /region-niigata -->
+
+<!-- ================= 福島方面 ================= -->
+<div id="region-fukushima" class="region" hidden>
+<section class="section wrap">
+  <div class="section__head">
+    <p class="eyebrow">Alternative ／ 福島方面</p>
+    <h2>会津、4方面でいちばん現実的な1泊2日</h2>
+    <p class="lede">
+      水戸から会津若松まで、在来線の乗り継ぎで片道4,070円・5時間半ほど。
+      4方面のなかでは交通費が最も安く済み、宿や食事にまわせる余裕がいちばん大きい。
+    </p>
+  </div>
+
+  <div class="flag">
+    <b>アクセス。</b>水戸→郡山→会津若松（磐越西線）の乗り継ぎで、往復1人あたり8千円強が目安。
+    4方面のうちここだけは、浮いた分を宿1泊増やす、または食事のグレードを上げるといった調整がしやすい。
+  </div>
+
+  <div class="minidays">
+    <div class="miniday">
+      <p class="miniday__label">DAY 1</p>
+      <div class="card">
+        <div class="card__media">
+          <img src="images/tsurugajo.jpg" alt="鶴ヶ城の門と天守。石垣の上に白壁の天守がそびえ、手前に薬医門がある。" loading="lazy">
+          <p class="card__cap"><span>鶴ヶ城</span><span>Photo: Σ64, CC BY-SA 3.0</span></p>
+        </div>
+        <div class="card__body">
+          <div class="card__title">
+            <h3>城下町を歩く</h3>
+            <span class="theme-tag">会津若松</span>
+          </div>
+          <p class="card__lede">戊辰戦争の舞台。天守からは会津盆地と磐梯山を一望できる。</p>
+          <dl class="sched">
+            <dt>08:00</dt><dd>水戸を出発<em>郡山で磐越西線に乗り換え。</em></dd>
+            <dt>13:30</dt><dd>会津若松駅着</dd>
+            <dt>14:00</dt><dd><b>鶴ヶ城を見学</b><span class="yen">¥820 / 2人</span><em>入場410円／人。天守内は資料館になっている。</em></dd>
+            <dt>15:30</dt><dd>飯盛山<em>白虎隊の史跡。無料で歩ける。</em></dd>
+            <dt>18:00</dt><dd>会津のソースカツ丼で夕食<span class="yen">¥2,400 / 2人</span><em>薄いカツを甘辛いソースにくぐらせた会津名物。</em></dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="miniday">
+      <p class="miniday__label">DAY 2</p>
+      <div class="card">
+        <div class="card__media">
+          <img src="images/ouchijuku.jpg" alt="大内宿の通り。茅葺き屋根の民家が両側に連なり、水路沿いを観光客が歩く。" loading="lazy">
+          <p class="card__cap"><span>大内宿</span><span>Photo: Σ64, CC BY 4.0</span></p>
+        </div>
+        <div class="card__body">
+          <div class="card__title">
+            <h3>大内宿でねぎそば</h3>
+            <span class="theme-tag">下郷町</span>
+          </div>
+          <p class="card__lede">江戸時代の宿場町がそのまま残る。1本のねぎを箸代わりに食べる「ねぎそば」が名物。</p>
+          <dl class="sched">
+            <dt>09:00</dt><dd>会津若松駅からバスで大内宿へ<span class="yen">¥3,000 / 2人</span><em>片道1時間ほど。本数が少ないので時刻を事前に確認。</em></dd>
+            <dt>10:30</dt><dd><b>大内宿を歩く</b><em>集落の入場は無料。高倉神社の展望台から街並みを一望できる。</em></dd>
+            <dt>12:00</dt><dd>ねぎそばで昼食<span class="yen">¥2,600 / 2人</span></dd>
+            <dt>14:00</dt><dd>会津若松からバス・在来線で帰路へ</dd>
+            <dt>20:00</dt><dd>水戸着</dd>
+          </dl>
+          <div class="card__foot">
+            <span class="label">2日間 合計</span>
+            <span class="sum">¥40,000<small>2人分</small></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="budget-scroll">
+    <table class="budget">
+      <caption>2人合計。交通は在来線乗り継ぎ、宿は会津若松市内を想定した概算です。</caption>
+      <thead><tr><th scope="col">項目</th><th scope="col">内訳</th><th scope="col" class="n">金額</th></tr></thead>
+      <tbody>
+        <tr><th scope="row" class="row-label">交通</th><td class="detail">在来線往復（2人）</td><td class="n">¥16,000</td></tr>
+        <tr><th scope="row" class="row-label">宿</th><td class="detail">会津若松市内、1泊（2人）</td><td class="n">¥10,000</td></tr>
+        <tr><th scope="row" class="row-label">食事</th><td class="detail">ソースカツ丼・ねぎそばなど</td><td class="n">¥6,000</td></tr>
+        <tr><th scope="row" class="row-label">入場・バス</th><td class="detail">鶴ヶ城、大内宿への路線バス</td><td class="n">¥5,000</td></tr>
+        <tr><th scope="row" class="row-label">予備</th><td class="detail">4方面でいちばん余裕がある</td><td class="n">¥3,000</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2">合計</td><td class="n">¥40,000</td></tr></tfoot>
+    </table>
+  </div>
+</section>
+</div><!-- /region-fukushima -->
+
+<!-- ================= 伊豆方面 ================= -->
+<div id="region-izu" class="region" hidden>
+<section class="section wrap">
+  <div class="section__head">
+    <p class="eyebrow">Alternative ／ 伊豆方面</p>
+    <h2>熱海と城ヶ崎、在来線だけで行く1泊2日</h2>
+    <p class="lede">
+      東京を挟んで反対側にある伊豆は、4方面のなかで最も遠回りになる。
+      特急「踊り子」を使えば速いが、水戸〜東京〜熱海を各駅停車・快速だけで
+      つなぐと運賃はぐっと下がる。片道4時間ほどかかるのは移動日と割り切る。
+    </p>
+  </div>
+
+  <div class="flag">
+    <b>アクセス。</b>水戸→（常磐線）→東京→（東海道線）→熱海と普通列車を乗り継ぐと、
+    往復1人あたり8,600円ほど。特急「踊り子」を使うと1時間以上短縮できるが、
+    2人往復で5千円前後の追加になる。
+  </div>
+
+  <div class="minidays">
+    <div class="miniday">
+      <p class="miniday__label">DAY 1</p>
+      <div class="card">
+        <div class="card__media">
+          <img src="images/atami.jpg" alt="熱海の街並みと港。山の斜面に建物が連なり、湾に沿って熱海サンビーチが弧を描く。" loading="lazy">
+          <p class="card__cap"><span>熱海</span><span>Photo: Suicasmo, CC BY-SA 4.0</span></p>
+        </div>
+        <div class="card__body">
+          <div class="card__title">
+            <h3>温泉街と大楠</h3>
+            <span class="theme-tag">熱海</span>
+          </div>
+          <p class="card__lede">9月下旬はまだ海水浴のなごりが残る気温。観光客は夏より落ち着く。</p>
+          <dl class="sched">
+            <dt>08:00</dt><dd>水戸を出発<em>常磐線で東京へ、東海道線に乗り継ぎ。</em></dd>
+            <dt>12:30</dt><dd>熱海駅着</dd>
+            <dt>13:00</dt><dd><b>来宮神社</b><em>参拝無料。樹齢2,000年超ともいわれる大楠が御神木。</em></dd>
+            <dt>15:00</dt><dd>熱海サンビーチを散歩<em>無料。</em></dd>
+            <dt>17:00</dt><dd>宿にチェックイン、金目鯛の夕食<span class="yen">¥7,000 / 2人</span><em>熱海名物。宿の食事に含む想定。</em></dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="miniday">
+      <p class="miniday__label">DAY 2</p>
+      <div class="card">
+        <div class="card__media">
+          <img src="images/jogasaki.jpg" alt="城ヶ崎海岸の断崖と海。黒い溶岩の岸壁に白波が砕け、青い海が水平線まで広がる。" loading="lazy">
+          <p class="card__cap"><span>城ヶ崎海岸</span><span>Photo: Tomo, CC BY 2.0</span></p>
+        </div>
+        <div class="card__body">
+          <div class="card__title">
+            <h3>溶岩の海岸線</h3>
+            <span class="theme-tag">伊東・城ヶ崎</span>
+          </div>
+          <p class="card__lede">大室山の噴火でできた溶岩海岸。吊り橋から真下の海を見下ろせる。</p>
+          <dl class="sched">
+            <dt>08:30</dt><dd>熱海から伊東線で伊豆高原へ<span class="yen">¥1,200 / 2人</span></dd>
+            <dt>09:30</dt><dd><b>城ヶ崎海岸・門脇吊橋</b><span class="yen">¥600 / 2人</span><em>吊橋通行料が別途かかる区間あり。</em></dd>
+            <dt>12:00</dt><dd>伊東で海鮮の昼食<span class="yen">¥3,000 / 2人</span></dd>
+            <dt>13:30</dt><dd>伊東線・東海道線・常磐線で帰路へ</dd>
+            <dt>18:00</dt><dd>水戸着</dd>
+          </dl>
+          <div class="card__foot">
+            <span class="label">2日間 合計</span>
+            <span class="sum">¥40,000<small>2人分</small></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="budget-scroll">
+    <table class="budget">
+      <caption>2人合計。交通は在来線のみ、宿は熱海の1泊2食を想定した概算です。</caption>
+      <thead><tr><th scope="col">項目</th><th scope="col">内訳</th><th scope="col" class="n">金額</th></tr></thead>
+      <tbody>
+        <tr><th scope="row" class="row-label">交通</th><td class="detail">常磐線・東海道線往復（2人）</td><td class="n">¥17,000</td></tr>
+        <tr><th scope="row" class="row-label">現地移動</th><td class="detail">伊東線、吊橋通行料</td><td class="n">¥2,000</td></tr>
+        <tr><th scope="row" class="row-label">宿</th><td class="detail">熱海、1泊2食（2人）</td><td class="n">¥9,000</td></tr>
+        <tr><th scope="row" class="row-label">食事</th><td class="detail">金目鯛・海鮮丼など</td><td class="n">¥7,000</td></tr>
+        <tr><th scope="row" class="row-label">入場</th><td class="detail">来宮神社は無料、吊橋のみ</td><td class="n">¥1,000</td></tr>
+        <tr><th scope="row" class="row-label">予備</th><td class="detail"></td><td class="n">¥4,000</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2">合計</td><td class="n">¥40,000</td></tr></tfoot>
+    </table>
+  </div>
+</section>
+</div><!-- /region-izu -->
+
 <!-- ================= footer ================= -->
 <footer class="foot">
   <div class="wrap">
@@ -943,6 +1348,8 @@ table{border-collapse:collapse}
       料金・営業時間・開催日は2026年8月時点で各施設や自治体が公開している情報をもとにしています。
       連休中は臨時ダイヤや特別料金になることがあるため、出発前に公式サイトでの確認をおすすめします。
       宿泊費は相場からの見積もりで、実際の料金は宿と予約時期によって変わります。
+      山形・新潟・福島・伊豆の3方面は水戸からの実際の高速バス・在来線の運賃情報をもとにした概算で、
+      新幹線や特急を使わない乗り継ぎを前提にしています。実際に予約する前に、経路と運賃を必ず確認してください。
     </p>
 
     <h2 style="margin-top:2rem">写真クレジット</h2>
@@ -960,6 +1367,14 @@ table{border-collapse:collapse}
       <div>露天風呂（イメージ・鷹の湯温泉） — RickardA, パブリックドメイン</div>
       <div>海鮮丼（イメージ） — pxfuel, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></div>
       <div>そばと天ぷら（イメージ） — pelican, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a></div>
+      <div>山寺（立石寺） — Zairon, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></div>
+      <div>蔵王の御釜 — OKJaguar, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></div>
+      <div>鶴ヶ城 — Σ64, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></div>
+      <div>大内宿 — Σ64, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div>
+      <div>清津峡 — 清兵衛, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></div>
+      <div>谷川岳ロープウェイ — Qurren, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></div>
+      <div>熱海 — Suicasmo, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></div>
+      <div>城ヶ崎海岸 — Tomo, <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a></div>
     </div>
 
     <div class="sources">
@@ -976,7 +1391,17 @@ table{border-collapse:collapse}
         <a href="https://kodokan-ibaraki.jp/">弘道館 公式</a>／
         <a href="https://www.ibarakiguide.jp/special/kochia.html">観光いばらき（コキア）</a>／
         <a href="https://www.tenshin.museum.ibk.ed.jp/">茨城県天心記念五浦美術館</a>／
-        <a href="https://www.ibarakiguide.jp/gourmet/ibaraki_restaurant/hitachiakisoba.html">観光いばらき（常陸秋そば）</a>
+        <a href="https://www.ibarakiguide.jp/gourmet/ibaraki_restaurant/hitachiakisoba.html">観光いばらき（常陸秋そば）</a>／
+        <a href="https://yamagatakanko.com/">山形県観光物産協会</a>／
+        <a href="https://hirotravel.com/yamadera/">立石寺（山寺）拝観案内</a>／
+        <a href="https://www.zao-machikan.jp/">蔵王温泉観光協会</a>／
+        <a href="https://www.aizukanko.com/">会津若松観光ビューロー</a>／
+        <a href="https://www.tohokukanko.jp/attractions/detail_1546.html">大内宿（旅東北）</a>／
+        <a href="https://enjoyniigata.com/">新潟県観光協会</a>／
+        <a href="https://www.kiyotsu.com/">清津峡渓谷トンネル 公式</a>／
+        <a href="https://www.tanigawadake-rw.com/">谷川岳ロープウェイ 公式</a>／
+        <a href="https://www.ataminews.gr.jp/">熱海市観光協会</a>／
+        <a href="https://izu-guide.com/">伊豆観光ガイド</a>
       </p>
     </div>
   </div>
@@ -984,30 +1409,102 @@ table{border-collapse:collapse}
 
 <script>
 (function(){
-  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
-  var panels = tabs.map(function(t){ return document.getElementById(t.getAttribute('aria-controls')); });
+  function wireTabs(tabSelector){
+    var tabs = Array.prototype.slice.call(document.querySelectorAll(tabSelector));
+    if (!tabs.length) return;
+    var panels = tabs.map(function(t){ return document.getElementById(t.getAttribute('aria-controls')); });
 
-  function select(index, moveFocus){
-    tabs.forEach(function(t, i){
-      var active = i === index;
-      t.setAttribute('aria-selected', active ? 'true' : 'false');
-      t.tabIndex = active ? 0 : -1;
-      panels[i].hidden = !active;
+    function select(index, moveFocus){
+      tabs.forEach(function(t, i){
+        var active = i === index;
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+        t.tabIndex = active ? 0 : -1;
+        panels[i].hidden = !active;
+      });
+      if (moveFocus) tabs[index].focus();
+    }
+
+    tabs.forEach(function(tab, i){
+      tab.addEventListener('click', function(){ select(i, false); });
+      tab.addEventListener('keydown', function(e){
+        var next = null;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % tabs.length;
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (i - 1 + tabs.length) % tabs.length;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = tabs.length - 1;
+        if (next !== null){ e.preventDefault(); select(next, true); }
+      });
     });
-    if (moveFocus) tabs[index].focus();
   }
 
-  tabs.forEach(function(tab, i){
-    tab.addEventListener('click', function(){ select(i, false); });
-    tab.addEventListener('keydown', function(e){
-      var next = null;
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % tabs.length;
-      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (i - 1 + tabs.length) % tabs.length;
-      else if (e.key === 'Home') next = 0;
-      else if (e.key === 'End') next = tabs.length - 1;
-      if (next !== null){ e.preventDefault(); select(next, true); }
+  wireTabs('.tab');
+  wireTabs('.region-tab');
+
+  var HERO = {
+    ibaraki: {
+      img: "images/fukuroda-falls.jpg",
+      alt: "夏の袋田の滝。四段に折れながら広い岩肌を流れ落ちる白い水と、両側の深い緑。",
+      title: "奥久慈と海の<br>五日間",
+      note: "11年ぶりに成立した5連休。遠出をすると移動費だけで予算が溶けるので、片道1時間半以内の「県北」に絞り、宿は1泊だけ。残りは日帰りを重ねて、二人で4万円ちょうどに収めた案です。",
+      days: "5<small>日</small>",
+      credit: "袋田の滝 ／ Photo: TANAKA Juuyoh, CC BY 2.0"
+    },
+    yamagata: {
+      img: "images/zao-okama.jpg",
+      alt: "蔵王の御釜。三方を外輪山に囲まれたエメラルドグリーンの火口湖。",
+      title: "蔵王と山寺<br>駆け足の1泊2日",
+      note: "水戸から片道3〜4時間強。新幹線を使うと交通費だけで予算の半分以上が飛ぶため、高速バス乗り継ぎ前提。山寺と蔵王、それぞれ半日ずつに絞った弾丸プランです。",
+      days: "1泊2日",
+      credit: "蔵王の御釜 ／ Photo: OKJaguar, CC BY-SA 4.0"
+    },
+    niigata: {
+      img: "images/tanigawadake.jpg",
+      alt: "谷川岳ロープウェイのゴンドラと、紅葉に染まった山肌（写真は紅葉最盛期）。",
+      title: "清津峡と谷川岳<br>県境の1泊2日",
+      note: "新幹線なら大宮から52分だが、自由席往復で1人1万円を超える。ここでは高崎経由の在来線を乗り継ぎ、時間より予算を優先しました。",
+      days: "1泊2日",
+      credit: "谷川岳ロープウェイ（写真は紅葉最盛期）／ Photo: Qurren, CC BY-SA 3.0"
+    },
+    fukushima: {
+      img: "images/tsurugajo.jpg",
+      alt: "鶴ヶ城の門と天守。石垣の上に白壁の天守がそびえる。",
+      title: "会津、いちばん<br>現実的な1泊2日",
+      note: "水戸から会津若松まで在来線で片道4,070円・5時間半ほど。4方面のなかでは交通費が最も安く、宿や食事にまわせる余裕がいちばん大きい選択肢です。",
+      days: "1泊2日",
+      credit: "鶴ヶ城 ／ Photo: Σ64, CC BY-SA 3.0"
+    },
+    izu: {
+      img: "images/jogasaki.jpg",
+      alt: "城ヶ崎海岸の断崖と海。黒い溶岩の岸壁に白波が砕ける。",
+      title: "熱海と城ヶ崎<br>在来線だけの1泊2日",
+      note: "東京を挟んで反対側にある伊豆は、4方面でいちばん遠回り。特急を使わず常磐線・東海道線の普通列車だけでつなぎ、運賃を切り詰めました。",
+      days: "1泊2日",
+      credit: "城ヶ崎海岸 ／ Photo: Tomo, CC BY 2.0"
+    }
+  };
+
+  document.querySelectorAll('.region-tab').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var key = btn.id.replace('region-tab-', '');
+      var h = HERO[key];
+      if (!h) return;
+      document.getElementById('hero-img').src = h.img;
+      document.getElementById('hero-img').alt = h.alt;
+      document.getElementById('hero-title').innerHTML = h.title;
+      document.getElementById('hero-note').textContent = h.note;
+      document.getElementById('hero-days').innerHTML = h.days;
+      document.getElementById('hero-credit').textContent = h.credit;
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
     });
   });
+
+  function syncRegionbarHeight(){
+    var bar = document.querySelector('.regionbar');
+    if (bar) document.documentElement.style.setProperty('--regionbar-h', bar.offsetHeight + 'px');
+  }
+  syncRegionbarHeight();
+  window.addEventListener('resize', syncRegionbarHeight);
 })();
 </script>
 
