@@ -324,6 +324,12 @@ table{border-collapse:collapse}
   background:var(--ryujin-soft);font-size:.8rem;line-height:1.58;color:var(--ink-soft);
 }
 .flag b{color:var(--ink)}
+.flag--car{border-left-color:var(--kuri);background:var(--surface-sunk)}
+.flag--car table.mini{width:100%;border-collapse:collapse;margin-top:.5rem;font-size:.78rem}
+.flag--car table.mini td{padding:.28rem .5rem .28rem 0;border-bottom:1px dotted var(--rule);vertical-align:top}
+.flag--car table.mini td:first-child{color:var(--stone);white-space:nowrap;width:5.2rem}
+.flag--car table.mini td.n{font-family:var(--font-num);font-variant-numeric:tabular-nums;font-weight:700}
+.flag--car table.mini tr:last-child td{border-bottom:0}
 
 /* photo strip inside a day */
 .duo{display:grid;grid-template-columns:1fr;gap:1px;background:var(--rule)}
@@ -1000,6 +1006,18 @@ table{border-collapse:collapse}
     2人往復だけで予算の大半が消えます。
   </div>
 
+  <div class="flag flag--car">
+    <b>車で行く場合。</b>実は今回の4方面ではいちばん車が有利。高速バス2人往復より6,500円ほど安く、
+    時間も半分近くに縮む。運転を交代できるなら現実的な選択肢です。
+    <table class="mini">
+      <tr><td>ルート</td><td>北関東道→東北道→山形道（山形上山IC）</td></tr>
+      <tr><td>距離・時間</td><td class="n">271.7km・片道3時間31分</td></tr>
+      <tr><td>高速代</td><td class="n">往復¥12,160（ETC・2人分込み）</td></tr>
+      <tr><td>ガソリン代</td><td class="n">往復¥6,300（15km/L・175円/L換算）</td></tr>
+      <tr><td>車の合計</td><td class="n">¥18,500<span style="color:var(--stone);font-weight:400">（2人・往復）</span></td></tr>
+    </table>
+  </div>
+
   <div class="minidays">
     <div class="miniday">
       <p class="miniday__label">DAY 1</p>
@@ -1090,6 +1108,18 @@ table{border-collapse:collapse}
     行き帰りとも移動日と割り切る。
   </div>
 
+  <div class="flag flag--car">
+    <b>車で行く場合。</b>関越道は北関東道からそのままつながり、渋滞さえなければ在来線より2時間近く早い。
+    ここは正確な料金を確認できていない区間があるため、下の数字は概算です。
+    <table class="mini">
+      <tr><td>ルート</td><td>北関東道→関越道（越後湯沢IC）</td></tr>
+      <tr><td>距離・時間</td><td class="n">約230km・片道3時間20分</td></tr>
+      <tr><td>高速代</td><td class="n">往復概算¥11,000（ETC・2人分込み）</td></tr>
+      <tr><td>ガソリン代</td><td class="n">往復概算¥5,400（15km/L・175円/L換算）</td></tr>
+      <tr><td>車の合計</td><td class="n">概算¥16,400<span style="color:var(--stone);font-weight:400">（2人・往復）</span></td></tr>
+    </table>
+  </div>
+
   <div class="minidays">
     <div class="miniday">
       <p class="miniday__label">DAY 1</p>
@@ -1176,6 +1206,18 @@ table{border-collapse:collapse}
   <div class="flag">
     <b>アクセス。</b>水戸→郡山→会津若松（磐越西線）の乗り継ぎで、往復1人あたり8千円強が目安。
     4方面のうちここだけは、浮いた分を宿1泊増やす、または食事のグレードを上げるといった調整がしやすい。
+  </div>
+
+  <div class="flag flag--car">
+    <b>車で行く場合。</b>4方面のなかで唯一、車のほうが電車より安くて速い。常磐道→磐越道は乗り換えなしの
+    ほぼ一本道で、片道2時間半。運転できるなら車が第一候補になる方面です。
+    <table class="mini">
+      <tr><td>ルート</td><td>常磐道→磐越道（会津若松IC）</td></tr>
+      <tr><td>距離・時間</td><td class="n">206.7km・片道2時間33分</td></tr>
+      <tr><td>高速代</td><td class="n">往復¥10,060（ETC・2人分込み）</td></tr>
+      <tr><td>ガソリン代</td><td class="n">往復¥4,800（15km/L・175円/L換算）</td></tr>
+      <tr><td>車の合計</td><td class="n">¥14,900<span style="color:var(--stone);font-weight:400">（2人・往復）</span></td></tr>
+    </table>
   </div>
 
   <div class="minidays">
@@ -1268,6 +1310,19 @@ table{border-collapse:collapse}
     2人往復で5千円前後の追加になる。
   </div>
 
+  <div class="flag flag--car">
+    <b>車で行く場合。</b>4方面で唯一、車のほうが電車より高くつく可能性がある方面。
+    圏央道経由で東京を迂回できるものの、連休中は渋滞しやすい区間で、下の所要時間はかなり幅を見た概算。
+    運転の負担も考えると、伊豆は電車のほうが無難かもしれません。
+    <table class="mini">
+      <tr><td>ルート</td><td>北関東道→圏央道→東名高速（厚木・小田原方面）</td></tr>
+      <tr><td>距離・時間</td><td class="n">約250km・片道4時間前後（渋滞で変動大）</td></tr>
+      <tr><td>高速代</td><td class="n">往復概算¥14,000（ETC・2人分込み）</td></tr>
+      <tr><td>ガソリン代</td><td class="n">往復概算¥5,800（15km/L・175円/L換算）</td></tr>
+      <tr><td>車の合計</td><td class="n">概算¥19,800<span style="color:var(--stone);font-weight:400">（2人・往復）</span></td></tr>
+    </table>
+  </div>
+
   <div class="minidays">
     <div class="miniday">
       <p class="miniday__label">DAY 1</p>
@@ -1348,8 +1403,11 @@ table{border-collapse:collapse}
       料金・営業時間・開催日は2026年8月時点で各施設や自治体が公開している情報をもとにしています。
       連休中は臨時ダイヤや特別料金になることがあるため、出発前に公式サイトでの確認をおすすめします。
       宿泊費は相場からの見積もりで、実際の料金は宿と予約時期によって変わります。
-      山形・新潟・福島・伊豆の3方面は水戸からの実際の高速バス・在来線の運賃情報をもとにした概算で、
-      新幹線や特急を使わない乗り継ぎを前提にしています。実際に予約する前に、経路と運賃を必ず確認してください。
+      山形・新潟・福島・伊豆の4方面は水戸からの実際の高速バス・在来線の運賃情報をもとにした概算で、
+      新幹線や特急を使わない乗り継ぎを前提にしています。各方面の「車で行く場合」は、水戸ICからのETC通行料
+      （山形・福島は実際の料金検索結果、新潟・伊豆は概算）に、燃費15km/L・ガソリン175円/Lで計算した
+      燃料代を足したものです。ガソリン価格や渋滞状況で実際の金額は変わります。
+      実際に予約する前に、経路と運賃を必ず確認してください。
     </p>
 
     <h2 style="margin-top:2rem">写真クレジット</h2>
@@ -1401,7 +1459,9 @@ table{border-collapse:collapse}
         <a href="https://www.kiyotsu.com/">清津峡渓谷トンネル 公式</a>／
         <a href="https://www.tanigawadake-rw.com/">谷川岳ロープウェイ 公式</a>／
         <a href="https://www.ataminews.gr.jp/">熱海市観光協会</a>／
-        <a href="https://izu-guide.com/">伊豆観光ガイド</a>
+        <a href="https://izu-guide.com/">伊豆観光ガイド</a>／
+        <a href="https://kosoku.jp/">高速.jp（高速道路料金検索）</a>／
+        <a href="https://www.driveplaza.com/dp/SearchTop">ドラぷら（NEXCO東日本 高速料金・ルート検索）</a>
       </p>
     </div>
   </div>
