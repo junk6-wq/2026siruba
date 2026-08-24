@@ -1,0 +1,77 @@
+name: verify
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install build dependency (Pillow)
+        run: pip install Pillow
+
+      - name: Budget reconciliation (table sum == tfoot == card footer == HERO.budget)
+        run: |
+          python3 - <<'PY'
+          import re, sys
+          s = open('index.html').read()
+          bad = False
+          for rid in re.findall(r'id="region-(\w+)" class="region"', s):
+              m = re.search(rf'<div id="region-{rid}" class="region"[^>]*>(.*?)<!-- /region-{rid} -->', s, re.S)
+              blk = m.group(1)
+              tb = re.search(r'<tbody>(.*?)</tbody>', blk, re.S)
+              if not tb:
+                  continue
+              vals = [int(v.replace(',', '')) for v in re.findall(r'class="n">¥([\d,]+)</td>', tb.group(1))]
+              foot = re.search(r'<tfoot>.*?¥([\d,]+)', blk, re.S)
+              cardfoot = re.search(r'2日間 合計</span>\s*<span class="sum">¥([\d,]+)', blk)
+              hero = re.search(rf'{rid}:.*?budget: "¥([\d,]+)"', s, re.S)
+              nums = [foot.group(1), hero.group(1)] + ([cardfoot.group(1)] if cardfoot else [])
+              ok = sum(vals) == int(foot.group(1).replace(',', '')) and len(set(nums)) == 1
+              status = 'OK' if ok else '*** MISMATCH ***'
+              print(rid, sum(vals), foot.group(1), hero.group(1), status)
+              if not ok:
+                  bad = True
+          sys.exit(1 if bad else 0)
+          PY
+
+      - name: Image references (no missing, no orphaned files)
+        run: |
+          bad=0
+          for f in $(grep -o 'images/[a-z-]*\.jpg' index.html | sort -u); do
+            [ -f "$f" ] || { echo "MISSING $f"; bad=1; }
+          done
+          for f in images/*.jpg; do
+            grep -q "$f" index.html || { echo "UNUSED $f"; bad=1; }
+          done
+          exit $bad
+
+      - name: Tag balance (div/section/table open == close)
+        run: |
+          python3 -c "
+          import re, sys
+          s = open('index.html').read()
+          bad = False
+          for tag in ('div', 'section', 'table', 'main', 'nav'):
+              o = len(re.findall(rf'<{tag}\b', s))
+              c = len(re.findall(rf'</{tag}>', s))
+              print(tag, o, c, 'OK' if o == c else '*** MISMATCH ***')
+              if o != c:
+                  bad = True
+          sys.exit(1 if bad else 0)
+          "
+
+      - name: Build the single-file distributable and confirm every image embedded
+        run: |
+          python3 build_artifact.py
+          remaining=$(grep -c '"images/' dist/silver-week-2026.html || true)
+          echo "unembedded images/ references remaining: $remaining"
+          [ "$remaining" -eq 0 ]
