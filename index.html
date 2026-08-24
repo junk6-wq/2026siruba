@@ -84,6 +84,14 @@ body{
 img{max-width:100%;display:block}
 a{color:var(--ryujin);text-underline-offset:.22em;text-decoration-thickness:.06em}
 a:focus-visible,summary:focus-visible{outline:2px solid var(--ryujin);outline-offset:3px;border-radius:2px}
+
+.skip-link{
+  position:absolute;left:1rem;top:-3rem;z-index:100;
+  background:var(--moss);color:#FBFDFA;padding:.6rem 1rem;border-radius:3px;
+  font-size:.85rem;font-weight:700;text-decoration:none;
+  transition:top .15s ease;
+}
+.skip-link:focus{top:1rem}
 h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;line-height:1.42;text-wrap:balance;margin:0}
 p{margin:0}
 table{border-collapse:collapse}
@@ -165,7 +173,7 @@ table{border-collapse:collapse}
 .minidays{display:grid;gap:1.3rem;margin-top:1.2rem}
 .miniday__label{
   font-family:var(--font-num);font-size:.72rem;letter-spacing:.16em;
-  color:var(--stone-faint);font-weight:700;margin:0 0 .4rem;
+  color:var(--stone);font-weight:700;margin:0 0 .4rem;
 }
 
 /* ---------- tab bar ---------- */
@@ -187,7 +195,7 @@ table{border-collapse:collapse}
 }
 .tab:hover{color:var(--ink-soft)}
 .tab__label{font-size:.9rem;font-weight:700;letter-spacing:.02em;white-space:nowrap}
-.tab__sub{font-size:.62rem;color:var(--stone-faint);letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.tab__sub{font-size:.62rem;color:var(--stone);letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .tab[aria-selected="true"]{color:var(--moss);border-bottom-color:var(--moss)}
 .tab[aria-selected="true"] .tab__sub{color:var(--moss-soft)}
 @media (min-width:34rem){
@@ -250,7 +258,7 @@ table{border-collapse:collapse}
 }
 .day__n{
   font-family:var(--font-num);font-size:.68rem;letter-spacing:.16em;
-  color:var(--stone-faint);font-weight:700;
+  color:var(--stone);font-weight:700;
 }
 .day__date{
   font-family:var(--font-num);font-variant-numeric:tabular-nums;
@@ -458,7 +466,9 @@ table{border-collapse:collapse}
   <p class="hero__credit" id="hero-credit">袋田の滝 ／ Photo: TANAKA Juuyoh, CC BY 2.0</p>
 </header>
 
-<div class="regionbar">
+<a class="skip-link" href="#main-content">メインコンテンツへスキップ</a>
+
+<nav class="regionbar" aria-label="行き先を選ぶ">
   <div class="regionbar__inner wrap" role="tablist" aria-label="行き先を選ぶ">
     <button type="button" role="tab" id="region-tab-ibaraki" aria-controls="region-ibaraki" aria-selected="true" class="region-tab">茨城</button>
     <button type="button" role="tab" id="region-tab-yamagata" aria-controls="region-yamagata" aria-selected="false" tabindex="-1" class="region-tab">山形</button>
@@ -466,9 +476,10 @@ table{border-collapse:collapse}
     <button type="button" role="tab" id="region-tab-fukushima" aria-controls="region-fukushima" aria-selected="false" tabindex="-1" class="region-tab">福島</button>
     <button type="button" role="tab" id="region-tab-izu" aria-controls="region-izu" aria-selected="false" tabindex="-1" class="region-tab">伊豆</button>
   </div>
-</div>
+</nav>
 <p class="regionbar__note wrap">予算は2人合計4万円が目安。宿代は実勢価格で補正しているため、方面によっては4万〜4万2千円ほどになります。</p>
 
+<main id="main-content">
 <div id="region-ibaraki" class="region">
 
 <div class="tabbar">
@@ -1431,6 +1442,7 @@ table{border-collapse:collapse}
   </div>
 </section>
 </div><!-- /region-izu -->
+</main>
 
 <!-- ================= footer ================= -->
 <footer class="foot">
