@@ -163,6 +163,12 @@ table{border-collapse:collapse}
 }
 .region-tab:hover{background:rgba(255,255,255,.16)}
 .region-tab[aria-selected="true"]{background:#FBFDFA;color:var(--moss);border-color:#FBFDFA}
+.region-tab--pick{position:relative;border-color:rgba(255,255,255,.55)}
+.region-tab--pick::after{
+  content:"";position:absolute;top:-.2rem;right:-.2rem;width:.5rem;height:.5rem;
+  border-radius:99px;background:var(--kuri);border:1.5px solid var(--moss);
+}
+.region-tab--pick[aria-selected="true"]::after{border-color:#FBFDFA}
 .regionbar__note{
   padding-block:.55rem;font-size:.76rem;color:var(--stone);line-height:1.6;max-width:var(--measure);
   background:var(--ground);
@@ -470,14 +476,17 @@ table{border-collapse:collapse}
 
 <nav class="regionbar" aria-label="行き先を選ぶ">
   <div class="regionbar__inner wrap" role="tablist" aria-label="行き先を選ぶ">
+    <button type="button" role="tab" id="region-tab-yamagata" aria-controls="region-yamagata" aria-selected="false" tabindex="-1" class="region-tab region-tab--pick">山形</button>
+    <button type="button" role="tab" id="region-tab-fukushima" aria-controls="region-fukushima" aria-selected="false" tabindex="-1" class="region-tab region-tab--pick">福島</button>
     <button type="button" role="tab" id="region-tab-ibaraki" aria-controls="region-ibaraki" aria-selected="true" class="region-tab">茨城</button>
-    <button type="button" role="tab" id="region-tab-yamagata" aria-controls="region-yamagata" aria-selected="false" tabindex="-1" class="region-tab">山形</button>
     <button type="button" role="tab" id="region-tab-niigata" aria-controls="region-niigata" aria-selected="false" tabindex="-1" class="region-tab">新潟</button>
-    <button type="button" role="tab" id="region-tab-fukushima" aria-controls="region-fukushima" aria-selected="false" tabindex="-1" class="region-tab">福島</button>
     <button type="button" role="tab" id="region-tab-izu" aria-controls="region-izu" aria-selected="false" tabindex="-1" class="region-tab">伊豆</button>
   </div>
 </nav>
-<p class="regionbar__note wrap">予算は2人合計4万円が目安。宿代は実勢価格で補正しているため、方面によっては4万〜4万2千円ほどになります。</p>
+<p class="regionbar__note wrap">
+  <span style="color:var(--kuri);font-weight:700">●</span> 印の山形・福島がいま比較検討中の2候補。
+  予算は2人合計4万円が目安で、宿代は実勢価格で補正しているため方面によっては4万〜4万2千円ほどになります。
+</p>
 
 <main id="main-content">
 <div id="region-ibaraki" class="region">
@@ -1054,6 +1063,10 @@ table{border-collapse:collapse}
             <dt>18:00</dt><dd>夕食（宿）</dd>
           </dl>
         </div>
+        <figure class="solo">
+          <img src="images/yamadera2.jpg" alt="山寺の境内。断崖を背にした御朱印所の建物と、色づき始めた木々。" loading="lazy">
+          <figcaption class="figcap"><span>山寺の境内。写真は紅葉が進んだ時期のもの、9月下旬はまだ青葉が主体</span><span>Photo: 663highland, CC BY-SA 4.0</span></figcaption>
+        </figure>
       </div>
     </div>
 
@@ -1089,6 +1102,33 @@ table{border-collapse:collapse}
             <span class="sum">¥40,500<small>2人分</small></span>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="miniday">
+      <p class="miniday__label">参考</p>
+      <div class="card">
+        <div class="card__body">
+          <div class="card__title">
+            <h3>山形は他にも</h3>
+            <span class="theme-tag">今回のルート外</span>
+          </div>
+          <p class="card__lede">今回の山寺・蔵王ルートには含みませんが、比較検討の参考に。銀山温泉は蔵王温泉から車で1時間半ほど、米沢牛は南の米沢市が本場です。</p>
+        </div>
+        <div class="duo">
+          <figure>
+            <img src="images/ginzan1.jpg" alt="銀山温泉の街並み。木造の旅館が両岸に並び、赤い欄干の橋が川を渡る。" loading="lazy">
+            <figcaption class="figcap"><span>銀山温泉（尾花沢市）</span><span>Photo: ブルーノ・プラス, CC BY 4.0</span></figcaption>
+          </figure>
+          <figure>
+            <img src="images/ginzan2.jpg" alt="銀山温泉のもう一枚。木造3階建ての旅館と赤い橋、晴れた空。" loading="lazy">
+            <figcaption class="figcap"><span>大正〜昭和初期の木造旅館が今も営業する</span><span>Photo: 掬茶, CC BY-SA 4.0</span></figcaption>
+          </figure>
+        </div>
+        <figure class="solo">
+          <img src="images/yonezawa.jpg" alt="鉄板の上の米沢牛ステーキと焼き野菜。表面に焼き目がつき、脂が光っている。" loading="lazy">
+          <figcaption class="figcap"><span>米沢牛。山形を代表するブランド牛（米沢市）</span><span>Photo: Totti, CC BY-SA 4.0</span></figcaption>
+        </figure>
       </div>
     </div>
   </div>
@@ -1308,6 +1348,29 @@ table{border-collapse:collapse}
             <span class="label">2日間 合計</span>
             <span class="sum">¥40,000<small>2人分</small></span>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="miniday">
+      <p class="miniday__label">参考</p>
+      <div class="card">
+        <div class="card__body">
+          <div class="card__title">
+            <h3>福島は他にも</h3>
+            <span class="theme-tag">今回のルート外</span>
+          </div>
+          <p class="card__lede">今回の会津若松・大内宿ルートには含みませんが、比較検討の参考に。どちらも会津若松から車でさらに1時間前後、磐梯山の北側です。</p>
+        </div>
+        <div class="duo">
+          <figure>
+            <img src="images/goshiki1.jpg" alt="五色沼のひとつ。琥珀色の水面と、両側から迫る針葉樹の斜面。" loading="lazy">
+            <figcaption class="figcap"><span>五色沼（磐梯高原）。沼ごとに色が違う</span><span>Photo: Gmoz, CC BY-SA 2.0</span></figcaption>
+          </figure>
+          <figure>
+            <img src="images/bandaiazuma.jpg" alt="磐梯吾妻スカイラインのカーブする山岳道路。緑の山肌と雲が立ち込める谷。" loading="lazy">
+            <figcaption class="figcap"><span>磐梯吾妻スカイライン。福島市近郊の山岳ドライブルート</span><span>Photo: Douglas Paul Perkins, CC BY 4.0</span></figcaption>
+          </figure>
         </div>
       </div>
     </div>
